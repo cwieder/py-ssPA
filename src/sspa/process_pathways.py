@@ -7,7 +7,11 @@ class ProcessPathways:
 
     def process_reactome(self):
         # Process CHEBI to reactome data
-        f = pd.read_csv("pathway_databases/" + self.infile, sep="\t", header=None)
+
+        if self.infile == "R78":
+            f = pd.read_csv("pathway_databases/ChEBI2Reactome_All_Levels_R78.txt", sep="\t", header=None)
+        else:
+            f = pd.read_csv(self.infile, sep="\t", header=None)
         f.columns = ['CHEBI', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
         f_filt = f[f.species == self.organism]
         name_dict = dict(zip(f_filt['pathway_ID'], f_filt['pathway_name']))
@@ -29,7 +33,10 @@ class ProcessPathways:
         return pathway_dict, name_dict
 
     def process_kegg(self):
-        f = pd.read_csv("pathway_databases/" + self.infile, index_col=0)
+        if self.infile == "R98":
+            f = pd.read_csv("pathway_databases/KEGG_human_pathways_compounds_R98.csv", index_col=0)
+        else:
+            f = pd.read_csv(self.infile, index_col=0)
         name_dict = dict(zip(f.index, f['Pathway_name']))
         pathway_dict = {k: list(set(f.loc[k, '0':].tolist())) for k in list(name_dict.keys())}
         pathway_dict = {k: [i for i in v if pd.notnull(i)] for k, v in pathway_dict.items()}
