@@ -50,3 +50,9 @@ sspa.sspa_cluster(mat, pathways_dictionary)
 sspa.sspa_cluster(mat, pathways_dictionary, projection=True)
 
 ```
+
+## License
+GNU GPL 3.0
+
+## Citation
+If you are using this tool in your work, please cite: Wieder et al 2021 (manuscript in preparation)
