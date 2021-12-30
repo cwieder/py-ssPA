@@ -1,4 +1,6 @@
 import pandas as pd
+import pkg_resources
+
 
 class ProcessPathways:
     def __init__(self, infile, organism):
@@ -9,7 +11,8 @@ class ProcessPathways:
         # Process CHEBI to reactome data
 
         if self.infile == "R78":
-            f = pd.read_csv("pathway_databases/ChEBI2Reactome_All_Levels_R78.txt", sep="\t", header=None)
+            stream = pkg_resources.resource_stream(__name__, 'pathway_databases/ChEBI2Reactome_All_Levels_R78.txt')
+            f = pd.read_csv(stream, sep="\t", header=None, encoding='latin-1')
         else:
             f = pd.read_csv(self.infile, sep="\t", header=None)
         f.columns = ['CHEBI', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
@@ -34,7 +37,8 @@ class ProcessPathways:
 
     def process_kegg(self):
         if self.infile == "R98":
-            f = pd.read_csv("pathway_databases/KEGG_human_pathways_compounds_R98.csv", index_col=0)
+            stream = pkg_resources.resource_stream(__name__, 'pathway_databases/KEGG_human_pathways_compounds_R98.csv')
+            f = pd.read_csv(stream, index_col=0, encoding='latin-1')
         else:
             f = pd.read_csv(self.infile, index_col=0)
         name_dict = dict(zip(f.index, f['Pathway_name']))

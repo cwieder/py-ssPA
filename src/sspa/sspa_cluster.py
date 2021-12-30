@@ -1,6 +1,7 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 from sklearn.cluster import KMeans
+
 
 def sspa_cluster(mat, pathways, projection=False):
     pathway_matrices = []
