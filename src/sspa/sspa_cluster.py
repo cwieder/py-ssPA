@@ -3,12 +3,12 @@ import pandas as pd
 from sklearn.cluster import KMeans
 
 
-def sspa_cluster(mat, pathways, projection=False):
+def sspa_cluster(mat, pathways, min_entity=2, projection=False):
     pathway_matrices = []
     pathway_ids = []
     for pathway, compounds in pathways.items():
         single_pathway_matrix = mat.drop(mat.columns.difference(compounds), axis=1)
-        if single_pathway_matrix.shape[1] >= 1:
+        if single_pathway_matrix.shape[1] >= min_entity:
             pathway_matrices.append(single_pathway_matrix.values)
             pathway_ids.append(pathway)
 
