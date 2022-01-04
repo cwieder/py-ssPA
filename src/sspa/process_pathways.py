@@ -10,6 +10,7 @@ class ProcessPathways:
      Otherwise, specify the full path to the pathway input file. For reactome pathways, download
      the ChEBI2Reactome_All_levels file from https://reactome.org/download-data and specify the full filepath to this.
     :param organism : the organism requried (organism code or name, depending on pathway database used) when using Reactome
+
     :returns pathway entity dictionary (composed of pathway IDs and the entities each pathway is composed of),
      and pathway name mapping dict (composed of pathway ID: pathway name)
     """
