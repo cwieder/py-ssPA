@@ -46,7 +46,7 @@ sspa.sspa_kpca(mat, pathways_dictionary)
 # ssClustPA
 sspa.sspa_cluster(mat, pathways_dictionary)
 
-# ssClustPA(porj)
+# ssClustPA(proj)
 sspa.sspa_cluster(mat, pathways_dictionary, projection=True)
 
 ```
