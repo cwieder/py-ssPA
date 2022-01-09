@@ -68,7 +68,15 @@ sspa.sspa_svd(mat, pathways_dictionary)
 ```
 
 ### Additional available conventional pathway analysis methods
-- Over representation analysis (ORA)
+Over representation analysis (ORA)
+
+ORA requires a background list (all compounds or genes measured in the experiment) - to be passed to the function call in the form of a python list of compound/gene identifiers matching those in the input data matrix
+
+```
+# ORA
+sspa.over_representation_analysis(mat, background_list, pathway_dictionary)
+
+```
 
 ## License
 GNU GPL 3.0
