@@ -8,15 +8,23 @@ Install via pip
 
 ```
 pip install sspa
+
 ```
 
-Basic usage
+### Input data
+
+Omics matrix in the form of a Pandas DataFrame
+
+Data matrix must be scaled prior to use with sspa (each feature must have mean = 0 and SD = 1)
+
+
+### Basic usage
 
 ```
 import sspa
 ```
 
-We will import the metabolite pathways from the Reactome database. We can specify any of the Reactome organism names.
+We will import and process the metabolite pathways from the Reactome database into a python dictionary. We can specify any of the Reactome organism names.
 This returns a dictionary of pathways and compounds and a pathway name mapping dictionary
 
 ```
@@ -35,9 +43,11 @@ Generate pathway scores using kPCA method
 kpca_scores = sspa.sspa_kpca(example_data.iloc[:, :-2], reactome_pathways)
 ```
 
-### Supported single sample pathway analysis methods:
+### Available single sample pathway analysis methods:
 - kPCA
 - ssClustPA and ssClustPA(proj)
+- z-score (Lee et al. 2008)
+- SVD (PLAGE) (Tomfohr et al. 2007)
 
 ```
 # kPCA
@@ -51,8 +61,12 @@ sspa.sspa_cluster(mat, pathways_dictionary, projection=True)
 
 ```
 
+### Additional available conventional pathway analysis methods
+- Over representation analysis (ORA)
+
 ## License
 GNU GPL 3.0
 
 ## Citation
-If you are using this tool in your work, please cite: Wieder et al 2021 (manuscript in preparation)
+If you are using this tool in your work, please cite: Wieder et al 2021 (manuscript in preparation).
+If you are using the methods SVD (PLAGE), z-score, or ORA, please cite the original publications alongside this tool.
