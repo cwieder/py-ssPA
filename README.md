@@ -59,6 +59,12 @@ sspa.sspa_cluster(mat, pathways_dictionary)
 # ssClustPA(proj)
 sspa.sspa_cluster(mat, pathways_dictionary, projection=True)
 
+# z-score
+sspa.sspa_score(mat, pathways_dictionary)
+
+# SVD (PLAGE)
+sspa.sspa_svd(mat, pathways_dictionary)
+
 ```
 
 ### Additional available conventional pathway analysis methods
