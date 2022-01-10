@@ -8,12 +8,11 @@ Install via pip
 
 ```
 pip install sspa
-
 ```
 
 ### Input data
 
-Omics matrix in the form of a Pandas DataFrame
+Omics matrix in the form of a Pandas DataFrame. DataFrame must contain rows representing samples and columns representing compound/gene identifiers. Identifiers must match those in the pathway database desired (i.e. ChEBI compounds for Reactome metabolite pathways, or KEGG compound IDs for KEGG metaboltie pathways.)
 
 Data matrix must be scaled prior to use with sspa (each feature must have mean = 0 and SD = 1)
 
@@ -64,7 +63,6 @@ sspa.sspa_score(mat, pathways_dictionary)
 
 # SVD (PLAGE)
 sspa.sspa_svd(mat, pathways_dictionary)
-
 ```
 
 ### Additional available conventional pathway analysis methods
