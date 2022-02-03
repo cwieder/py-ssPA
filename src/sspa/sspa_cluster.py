@@ -46,5 +46,5 @@ def sspa_cluster(mat, pathways, min_entity=2, projection=False):
             new_data = kmeans.fit_transform(m)
             scores.append(new_data[:, 0])
 
-    scores_df = pd.DataFrame(scores, columns=mat.index, index=pathways.keys())
+    scores_df = pd.DataFrame(scores, columns=mat.index, index=pathway_ids).T
     return scores_df

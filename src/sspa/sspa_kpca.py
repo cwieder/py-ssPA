@@ -28,5 +28,5 @@ def sspa_kpca(mat, pathways, min_entity=2):
         kpca = KernelPCA(n_components=2, kernel="rbf")
         new_data = kpca.fit_transform(m)
         scores.append(new_data[:, 0])
-    scores_df = pd.DataFrame(scores, columns=mat.index, index=pathway_ids)
+    scores_df = pd.DataFrame(scores, columns=mat.index, index=pathway_ids).T
     return scores_df
