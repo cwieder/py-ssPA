@@ -14,21 +14,15 @@ def sspa_svd(mat, pathways, min_entity=2):
     :return: pandas DataFrame of pathway scores derived using the PLAGE method. Columns represent pathways and rows represnt samples.
     """
 
-    # Transpose the matrix for SVD
-
-    # mat_t = mat.T
     pathway_activities = []
 
     # Create pathway matrices
-    # pathway_matrices = []
     pathway_ids = []
     for pathway, compounds in pathways.items():
         single_pathway_matrix = mat.drop(mat.columns.difference(compounds), axis=1)
         if single_pathway_matrix.shape[1] >= min_entity:
-            # pathway_matrices.append(single_pathway_matrix.values)
             pathway_ids.append(pathway)
-            pathway_mat = single_pathway_matrix.values
-            pathway_mat = pathway_mat.to_numpy(dtype=float)
+            pathway_mat = single_pathway_matrix.T.values
 
             # s = singular values
             # u = left singular vector
