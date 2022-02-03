@@ -59,7 +59,7 @@ sspa.sspa_cluster(mat, pathways_dictionary)
 sspa.sspa_cluster(mat, pathways_dictionary, projection=True)
 
 # z-score
-sspa.sspa_score(mat, pathways_dictionary)
+sspa.sspa_zscore(mat, pathways_dictionary)
 
 # SVD (PLAGE)
 sspa.sspa_svd(mat, pathways_dictionary)
@@ -80,5 +80,5 @@ sspa.over_representation_analysis(mat, background_list, pathway_dictionary)
 GNU GPL 3.0
 
 ## Citation
-If you are using this tool in your work, please cite: Wieder et al 2021 (manuscript in preparation).
+If you are using this tool in your work, please cite: Wieder et al 2022 (manuscript in preparation).
 If you are using the methods SVD (PLAGE), z-score, or ORA, please cite the original publications alongside this tool.
