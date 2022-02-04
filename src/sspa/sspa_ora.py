@@ -2,6 +2,15 @@ import numpy as np
 import pandas as pd
 import scipy.stats as stats
 import statsmodels.api as sm
+import utils
+
+def ora_results(mat, metadata_column, pathways, cutoff_thresh=0.05):
+    t_test_res = utils.t_tests(mat, metadata_column, "fdr_bh")
+    DA_compounds = t_test_res[t_test_res["P-adjust"] <= cutoff_thresh]["Entity"].tolist()
+    bg_set = mat.columns.to_list()
+    ora_res = over_representation_analysis(DA_compounds, bg_set, pathways)
+    ora_res = ora_res.rename(columns={"Pathway_ID": "ID"})
+    return ora_res
 
 def over_representation_analysis(DA_list, background_list, pathway_dict):
     """
