@@ -4,7 +4,7 @@ import scipy.stats as stats
 import statsmodels.api as sm
 import sspa.utils as utils
 
-def ora_results(mat, metadata_column, pathways, cutoff_thresh=0.05):
+def sspa_ora(mat, metadata_column, pathways, cutoff_thresh=0.05):
     t_test_res = utils.t_tests(mat, metadata_column, "fdr_bh")
     DA_compounds = t_test_res[t_test_res["P-adjust"] <= cutoff_thresh]["Entity"].tolist()
     bg_set = mat.columns.to_list()
