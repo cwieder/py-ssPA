@@ -15,6 +15,10 @@ def over_representation_analysis(DA_list, background_list, pathway_dict):
     pathways = pathway_dict.keys()
     pathway_names = pathway_dict.keys()
 
+    # Remove pathways not present in the dataset
+    compounds_present = DA_list
+    pathways_present = {k: v for k, v in pathway_dict.items() if len([i for i in compounds_present if i in v]) >= 1}
+
     pathways_with_compounds = []
     pathway_names_with_compounds = []
     pvalues = []
@@ -22,7 +26,7 @@ def over_representation_analysis(DA_list, background_list, pathway_dict):
     pathway_count = 0
     pathway_coverage = []
 
-    for pathway in pathways:
+    for pathway in pathways_present:
         # perform ORA for each pathway
         pathway_compounds = pathway_dict[pathway]
         pathway_compounds = [i for i in pathway_compounds if str(i) != "nan"]
