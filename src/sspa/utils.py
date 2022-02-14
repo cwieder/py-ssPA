@@ -36,3 +36,16 @@ def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
     results = pd.DataFrame(zip(metabolites, pvalues, padj[1]),
                            columns=["Entity", "P-value", "P-adjust"])
     return results
+
+def pathwaydf_to_dict(df):
+    pathways_df = df.drop("Pathway_name", axis=1)
+    pathway_dict = {}
+
+    for pathway in df.index:
+        pathway_compounds = list(set(pathways_df.loc[pathway, :].tolist()))
+        pathway_compounds = [str(i) for i in pathway_compounds if str(i) != "None"]
+
+        cpds = pathway_compounds[1:]
+        if len(cpds) > 1:
+            pathway_dict[pathway] = cpds
+    return pathway_dict

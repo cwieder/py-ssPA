@@ -12,7 +12,7 @@ def sspa_ora(mat, metadata_column, pathways, cutoff_thresh=0.05):
     ora_res = ora_res.rename(columns={"Pathway_ID": "ID"})
     return ora_res
 
-def over_representation_analysis(DA_list, background_list, pathway_dict):
+def over_representation_analysis(DA_list, background_list, pathways_df):
     """
     Function for over representation analysis using Fisher exact test (right tailed)
     :param DA_list: List of differentially abundant metabolite IDENTIFIERS
@@ -21,15 +21,14 @@ def over_representation_analysis(DA_list, background_list, pathway_dict):
     :return: DataFrame of ORA results for each pathway, p-value, q-value, hits ratio
     """
 
-    pathways = pathway_dict.keys()
-    pathway_names = pathway_dict.keys()
+    pathway_names = pathways_df["Pathway_name"].to_dict()
+    pathway_dict = pathwaydf_to_dict(pathways_df)
 
     # Remove pathways not present in the dataset
     compounds_present = DA_list
     pathways_present = {k: v for k, v in pathway_dict.items() if len([i for i in compounds_present if i in v]) >= 1}
 
     pathways_with_compounds = []
-    pathway_names_with_compounds = []
     pvalues = []
     pathway_ratio = []
     pathway_count = 0
@@ -63,7 +62,6 @@ def over_representation_analysis(DA_list, background_list, pathway_dict):
                 pathway_coverage.append(
                     str(compound_in_pathway_not_DA + DA_in_pathway) + "/" + str(len(pathway_compounds)))
                 pathways_with_compounds.append(pathway)
-                pathway_names_with_compounds.append(pathway)
                 contingency_table = np.array([[DA_in_pathway, compound_in_pathway_not_DA],
                                               [DA_not_in_pathway, compound_not_in_pathway_not_DA]])
                 # Run right tailed Fisher's exact test
@@ -72,11 +70,17 @@ def over_representation_analysis(DA_list, background_list, pathway_dict):
     try:
         padj = sm.stats.multipletests(pvalues, 0.05, method="fdr_bh")
         results = pd.DataFrame(
-            zip(pathways_with_compounds, pathway_names_with_compounds, pathway_ratio, pathway_coverage, pvalues,
+            zip(pathways_with_compounds, pathway_ratio, pathway_coverage, pvalues,
                 padj[1]),
-            columns=["Pathway_ID", "Pathway_name", "Hits", "Coverage", "P-value", "P-adjust"])
+            columns=["Pathway_ID",  "Hits", "Coverage", "P-value", "P-adjust"])
+        results["Pathway_name"] = results["Pathway_ID"].map(pathway_names)
+        results.insert(1, 'Pathway_name', results.pop('Pathway_name'))
+
     except ZeroDivisionError:
         padj = [1] * len(pvalues)
-        results = pd.DataFrame(zip(pathways_with_compounds, pathway_names_with_compounds, pathway_ratio, pvalues, padj),
-                               columns=["Pathway_ID", "Pathway_name", "Hits", "Coverage", "P-value", "P-adjust"])
+        results = pd.DataFrame(zip(pathways_with_compounds, pathway_ratio, pvalues, padj),
+                               columns=["Pathway_ID", "Hits", "Coverage", "P-value", "P-adjust"])
+        results["Pathway_name"] = results["Pathway_ID"].map(pathway_names)
+        results.insert(1, 'Pathway_name', results.pop('Pathway_name'))
+        
     return results
