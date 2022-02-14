@@ -1,7 +1,8 @@
 import pandas as pd
 import numpy as np
+import sspa.utils as utils
 
-def sspa_svd(mat, pathways, min_entity=2):
+def sspa_svd(mat, pathway_df, min_entity=2):
 
     """
     Tomfohr et al 2007 SVD/PLAGE method for single sample pathway analysis
@@ -13,6 +14,8 @@ def sspa_svd(mat, pathways, min_entity=2):
 
     :return: pandas DataFrame of pathway scores derived using the PLAGE method. Columns represent pathways and rows represnt samples.
     """
+
+    pathways = utils.pathwaydf_to_dict(pathway_df)
 
     pathway_activities = []
 
