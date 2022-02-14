@@ -22,7 +22,7 @@ def over_representation_analysis(DA_list, background_list, pathways_df):
     """
 
     pathway_names = pathways_df["Pathway_name"].to_dict()
-    pathway_dict = pathwaydf_to_dict(pathways_df)
+    pathway_dict = utils.pathwaydf_to_dict(pathways_df)
 
     # Remove pathways not present in the dataset
     compounds_present = DA_list

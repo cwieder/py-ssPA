@@ -1,7 +1,8 @@
 import pandas as pd
 from sklearn.decomposition import KernelPCA
+import sspa.utils as utils
 
-def sspa_kpca(mat, pathways, min_entity=2):
+def sspa_kpca(mat, pathway_df, min_entity=2):
 
     """
     Kernel PCA method for single sample pathway analysis
@@ -14,6 +15,8 @@ def sspa_kpca(mat, pathways, min_entity=2):
 
     :return: pandas DataFrame of pathway scores derived using the kPCA method. Columns represent pathways and rows represnt samples.
     """
+
+    pathways = utils.pathwaydf_to_dict(pathway_df)
 
     pathway_matrices = []
     pathway_ids = []

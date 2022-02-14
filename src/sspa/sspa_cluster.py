@@ -1,9 +1,10 @@
 import numpy as np
 import pandas as pd
 from sklearn.cluster import KMeans
+import sspa.utils as utils
 
 
-def sspa_cluster(mat, pathways, min_entity=2, projection=False):
+def sspa_cluster(mat, pathway_df, min_entity=2, projection=False):
 
     """
     K-means based clustering method for single sample pathway analysis
@@ -18,6 +19,8 @@ def sspa_cluster(mat, pathways, min_entity=2, projection=False):
 
     :return: pandas DataFrame of pathway scores derived using the ssClustPA/(proj) method. Columns represent pathways and rows represnt samples.
     """
+
+    pathways = utils.pathwaydf_to_dict(pathway_df)
 
     pathway_matrices = []
     pathway_ids = []

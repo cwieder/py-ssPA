@@ -2,8 +2,9 @@
 import pandas as pd
 import numpy as np
 import scipy.stats as stats
+import sspa.utils as utils
 
-def sspa_zscore(mat, pathways, min_entity=2):
+def sspa_zscore(mat, pathway_df, min_entity=2):
     """
     Lee at al 2008 z-score method for single sample pathway analysis
 
@@ -14,6 +15,9 @@ def sspa_zscore(mat, pathways, min_entity=2):
 
     :return: pandas DataFrame of pathway scores derived using the z-score method. Columns represent pathways and rows represnt samples.
     """
+
+    pathways = utils.pathwaydf_to_dict(pathway_df)
+
     pathway_activities = []
     pathway_ids = []
     for pathway, compounds in pathways.items():
