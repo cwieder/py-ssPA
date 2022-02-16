@@ -3,6 +3,7 @@
 
 
 ## Single sample pathway analysis tools for omics data
+**This package is still in development stages and not yet available on pip.**
 
 Install via pip
 
