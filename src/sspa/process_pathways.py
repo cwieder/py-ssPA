@@ -1,5 +1,6 @@
 import pandas as pd
 import pkg_resources
+import download_KEGG
 
 
 class ProcessPathways:
@@ -17,7 +18,7 @@ class ProcessPathways:
     def __init__(self, infile=None):
         self.infile = infile
 
-    def process_reactome(self, organism):
+    def process_reactome(self, organism, download_latest=False):
         # Process CHEBI to reactome data
 
         if self.infile == None or self.infile == "R78":
@@ -42,21 +43,27 @@ class ProcessPathways:
 
         return pathways_df
 
-    def process_kegg(self):
-        if self.infile == None or self.infile == "R98":
-            stream = pkg_resources.resource_stream(__name__, 'pathway_databases/KEGG_human_pathways_compounds_R98.csv')
-            pathways_df = pd.read_csv(stream, index_col=0, encoding='latin-1')
+    def process_kegg(self, organism, download_latest=False):
+
+        if download_latest:
+            pathways_df = download_KEGG(organism)
+            return pathways_df
+
         else:
-            pathways_df = pd.read_csv(self.infile, index_col=0)
+            if self.infile == None or self.infile == "R98":
+                stream = pkg_resources.resource_stream(__name__, 'pathway_databases/KEGG_human_pathways_compounds_R98.csv')
+                pathways_df = pd.read_csv(stream, index_col=0, encoding='latin-1')
+            else:
+                pathways_df = pd.read_csv(self.infile, index_col=0)
 
-        pathways_df = pathways_df.dropna(axis=0, how='all', subset=pathways_df.columns.tolist()[1:])
-        pathways_df = pathways_df.dropna(axis=1, how='all')
+            pathways_df = pathways_df.dropna(axis=0, how='all', subset=pathways_df.columns.tolist()[1:])
+            pathways_df = pathways_df.dropna(axis=1, how='all')
 
-        # Remove duplicated compounds
-        mask = pathways_df.apply(pd.Series.duplicated, 1) & pathways_df.astype(bool)
-        pathways_df = pathways_df.mask(mask, None)
+            # Remove duplicated compounds
+            mask = pathways_df.apply(pd.Series.duplicated, 1) & pathways_df.astype(bool)
+            pathways_df = pathways_df.mask(mask, None)
 
-        return pathways_df
+            return pathways_df
 
     def process_gmt(self):
         pathways_df = pd.read_csv(self.infile, index_col=0)
