@@ -53,8 +53,20 @@ def process_kegg(organism, infile=None, download_latest=False, filepath=None):
         return pathways_df
 
 def process_gmt(infile):
-    pathways_df = pd.read_csv(infile, index_col=0)
+    if infile[-4:] == ".csv":
+        pathways_df = pd.read_csv(infile, index_col=0)
+    elif infile[-4:] == ".gmt":
+        input_gmt = []
+        with open(infile, "r") as f:
+            for i in f:
+                input_gmt.append(i.strip("\n").split("\t"))
+        pathways_df = pd.DataFrame(input_gmt)
+        pathways_df = pathways_df.rename({0:"Pathway_ID", 1:"Pathway_name"}, axis=1)
+        pathways_df.index = pathways_df["Pathway_ID"]
+        pathways_df = pathways_df.drop("Pathway_ID", axis=1)
+
     pathways_df = pathways_df.dropna(axis=0, how='all', subset=pathways_df.columns.tolist()[1:])
     pathways_df = pathways_df.dropna(axis=1, how='all')
-
+    
     return pathways_df
+
