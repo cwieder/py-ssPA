@@ -3,7 +3,7 @@ import pkg_resources
 import scipy.stats as stats
 import statsmodels.api as sm
 
-def load_example_data(omicstype="metabolomics"):
+def load_example_data(omicstype="metabolomics", processed=True):
     """
     Loads example datasets
 
@@ -15,9 +15,14 @@ def load_example_data(omicstype="metabolomics"):
     """
 
     if omicstype == "metabolomics":
-        stream = pkg_resources.resource_stream(__name__, 'example_data/Su_covid_metabolomics_processed.csv')
-        f = pd.read_csv(stream, index_col=0, encoding='latin-1')
-        return f
+        if processed:
+            stream = pkg_resources.resource_stream(__name__, 'example_data/Su_covid_metabolomics_processed.csv')
+            f = pd.read_csv(stream, index_col=0, encoding='latin-1')
+            return f
+        else:
+            stream = pkg_resources.resource_stream(__name__, 'example_data/Su_metab_data_raw.csv')
+            f = pd.read_csv(stream, index_col=0, encoding='latin-1')
+            return f
 
 
 def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
