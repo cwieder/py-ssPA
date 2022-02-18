@@ -8,7 +8,7 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
     if download_latest:
         pathways_df = sspa.download_pathways.download_reactome(organism, filepath)
         return pathways_df
-        
+
     else:
         if infile == None or infile == "R78":
             stream = pkg_resources.resource_stream(__name__, 'pathway_databases/ChEBI2Reactome_All_Levels_R78.txt')
@@ -30,7 +30,7 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
 
         return pathways_df
 
-def process_kegg(self, organism, infile=None, download_latest=False, filepath=None):
+def process_kegg(organism, infile=None, download_latest=False, filepath=None):
 
     if download_latest:
         pathways_df = sspa.download_pathways.download_KEGG(organism, filepath)
@@ -52,7 +52,7 @@ def process_kegg(self, organism, infile=None, download_latest=False, filepath=No
 
         return pathways_df
 
-def process_gmt(self, infile):
+def process_gmt(infile):
     pathways_df = pd.read_csv(infile, index_col=0)
     pathways_df = pathways_df.dropna(axis=0, how='all', subset=pathways_df.columns.tolist()[1:])
     pathways_df = pathways_df.dropna(axis=1, how='all')
