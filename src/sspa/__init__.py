@@ -6,3 +6,4 @@ from .sspa_svd import sspa_svd
 from .utils import load_example_data, t_tests
 from .sspa_ora import over_representation_analysis, sspa_ora
 from .download_pathways import download_KEGG
+from .identifier_conversion import identifier_conversion, map_identifiers
