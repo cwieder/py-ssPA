@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import numpy as np
 
 def identifier_conversion(input_type, compound_list):
     url = "http://api.xialab.ca/mapcompounds"
