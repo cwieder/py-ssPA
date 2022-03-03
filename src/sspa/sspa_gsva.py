@@ -8,7 +8,7 @@ from rpy2.robjects.conversion import localconverter
 # for rpy2
 base = importr('base')
 
-def sspa_gsva(mat, pathway_df):
+def sspa_gsva(mat, pathway_df, min_entity=2):
 
     """
     Hanzelmann et al GSVA method for single sample pathway analysis. 
@@ -23,6 +23,8 @@ def sspa_gsva(mat, pathway_df):
     """
 
     pathways = utils.pathwaydf_to_dict(pathway_df)
+    compounds_present = mat.columns.tolist()
+    pathways = {k: v for k, v in pathways.items() if len([i for i in compounds_present if i in v]) >= min_entity}
 
     with localconverter(ro.default_converter + pandas2ri.converter):
         r_mat = ro.conversion.py2rpy(mat.T)
@@ -34,6 +36,6 @@ def sspa_gsva(mat, pathway_df):
     gsva_res = gsva_r.gsva(r_mat, r_list)
     with localconverter(ro.default_converter + pandas2ri.converter):
         gsva_df = ro.conversion.rpy2py(gsva_res)
-    gsva_res_df = pd.DataFrame(gsva_df, index=pathways.keys(), columns=mat.index.tolist())
+    gsva_res_df = pd.DataFrame(gsva_df.T, columns=pathways.keys(), index=mat.index.tolist())
 
     return gsva_res_df

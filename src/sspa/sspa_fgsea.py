@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import sspa.utils as utils
 import rpy2.robjects as ro
 from rpy2.robjects.packages import importr
 from rpy2.robjects import pandas2ri
@@ -8,7 +9,13 @@ from rpy2.robjects.conversion import localconverter
 # for rpy2
 base = importr('base')
 
-def sspa_fgsea(mat, metadata, pathways):
+def sspa_fgsea(mat, metadata, pathway_df, min_entity=2):
+
+    pathway_names = pathway_df["Pathway_name"].to_dict()
+    pathways = utils.pathwaydf_to_dict(pathway_df)
+    compounds_present = mat.columns.tolist()
+    pathways = {k: v for k, v in pathways.items() if len([i for i in compounds_present if i in v]) >= min_entity}
+
     # Get rankings - SNR
     mat['Target'] = pd.factorize(metadata)[0]
     class_a = mat.loc[mat["Target"] == 0]
@@ -47,5 +54,6 @@ def sspa_fgsea(mat, metadata, pathways):
     df = df.T
     df = df.apply(pd.to_numeric, errors="ignore")
     df.columns = ["ID", "P-value", "P-adjust", "log2err", "ES", "NES", "coverage", "leadingEdge"]
+    df["Pathway_name"] = df["ID"].map(pathway_names)
     
     return df
