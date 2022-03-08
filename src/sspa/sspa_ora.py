@@ -4,11 +4,14 @@ import scipy.stats as stats
 import statsmodels.api as sm
 import sspa.utils as utils
 
-def sspa_ora(mat, metadata_column, pathways, cutoff_thresh=0.05):
+def sspa_ora(mat, metadata_column, pathways, cutoff_thresh=0.05, custom_bgset=None):
     t_test_res = utils.t_tests(mat, metadata_column, "fdr_bh")
     DA_compounds = t_test_res[t_test_res["P-adjust"] <= cutoff_thresh]["Entity"].tolist()
-    bg_set = mat.columns.to_list()
-    ora_res = over_representation_analysis(DA_compounds, bg_set, pathways)
+    if not custom_bgset:
+        bg_set = mat.columns.to_list()
+        ora_res = over_representation_analysis(DA_compounds, bg_set, pathways)
+    else:
+        ora_res = over_representation_analysis(DA_compounds, custom_bgset, pathways)
     ora_res = ora_res.rename(columns={"Pathway_ID": "ID"})
     return ora_res
 
