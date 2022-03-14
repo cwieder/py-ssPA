@@ -90,7 +90,7 @@ def download_reactome(organism, filepath=None):
     version_no = release_data.text.split()[6]
 
     if filepath:
-        fpath = filepath + "/Reactome_" + organism.replace(" ", "_") + "_pathways_compounds_R" + str(version_no) + ".gmt"
+        fpath = filepath + "/Reactome_" + "_".join(organism.split())+ "_pathways_compounds_R" + str(version_no) + ".gmt"
         pathways_df.to_csv(fpath, sep="\t", header=False)
         print("Reactome DB file saved to " + fpath)
     print("Complete!")
