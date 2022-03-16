@@ -3,78 +3,98 @@
 
 
 ## Single sample pathway analysis tools for omics data
-**This package is still in development stages and not yet available on pip.**
 
-Install via pip
+Full walkthrough notebook available on Google Colab:
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/11e4G7hulpVgUXlEHktZMnjzQAaXcFEeb)
+
+## Quickstart
 ```
 pip install sspa
 ```
-
-### Input data
-
-Omics matrix in the form of a Pandas DataFrame. DataFrame must contain rows representing samples and columns representing compound/gene identifiers. Identifiers must match those in the pathway database desired (i.e. ChEBI compounds for Reactome metabolite pathways, or KEGG compound IDs for KEGG metaboltie pathways.)
-
-Data matrix must be scaled prior to use with sspa (each feature must have mean = 0 and SD = 1)
-
-
-### Basic usage
-
+Load Reactome pathways
 ```
-import sspa
-```
-
-We will import and process the metabolite pathways from the Reactome database into a python dictionary. We can specify any of the Reactome organism names.
-This returns a dictionary of pathways and compounds and a pathway name mapping dictionary
-
-```
-reactome_pathways, reactome_pathway_names = sspa.ProcessPathways("R78", "Homo sapiens").process_reactome()
+reactome_pathways  = sspa.process_reactome(organism="Homo sapiens")
 ```
 
 Load some example metabolomics data in the form of a pandas DataFrame:
 
 ```
-example_data = sspa.load_example_data(omicstype="metabolomics")
+covid_data_processed = sspa.load_example_data(omicstype="metabolomics", processed=True)
 ```
 
 Generate pathway scores using kPCA method
 
 ```
-kpca_scores = sspa.sspa_kpca(example_data.iloc[:, :-2], reactome_pathways)
+kpca_scores = sspa.sspa_kpca(covid_data_processed, reactome_pathways)
 ```
 
-### Available single sample pathway analysis methods:
-- kPCA
-- ssClustPA and ssClustPA(proj)
-- z-score (Lee et al. 2008)
-- SVD (PLAGE) (Tomfohr et al. 2007)
-
+## Loading pathways 
 ```
+# Pre-loaded pathways
+# Reactome v78
+reactome_pathways  = sspa.process_reactome(organism="Homo sapiens")
+
+# KEGG v98
+kegg_human_pathways  = sspa.process_kegg(organism="hsa")
+```
+
+Load a custom GMT file (extension .gmt or .csv)
+```
+custom_pathways = sspa.process_gmt("wikipathways-20220310-gmt-Homo_sapiens.gmt")
+```
+
+Download latest version of pathways
+```
+# download KEGG latest
+kegg_mouse_latest = sspa.process_kegg("mmu", download_latest=True, filepath=".")
+
+# download Reactome latest
+reactome_mouse_latest = sspa.process_reactome("Mus musculus", download_latest=True, filepath=".")
+```
+
+## Identifier harmonization 
+```
+# download the conversion table
+compound_names = processed_data.columns.tolist()
+conversion_table = sspa.identifier_conversion(input_type="name", compound_list=compound_names)
+
+# map the identifiers to your dataset
+processed_data_mapped = sspa.map_identifiers(conversion_table, output_id_type="ChEBI", matrix=processed_data)
+```
+
+## Conventional pathway analysis
+ORA
+```
+sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, custom_bgset=None)
+```
+
+GSEA
+```
+sspa.sspa_fgsea(processed_data_mapped, covid_data['Group'], reactome_pathways)
+```
+
+## Single sample pathway analysis methods
+```
+# ssclustPA
+ssclustpa_res = sspa.sspa_cluster(processed_data_mapped, reactome_pathways)
+
+# ssclustPA(proj)
+ssclustpa_proj_res = sspa.sspa_cluster(processed_data_mapped, reactome_pathways, projection=True)
+
 # kPCA
-sspa.sspa_kpca(mat, pathways_dictionary)
-
-# ssClustPA
-sspa.sspa_cluster(mat, pathways_dictionary)
-
-# ssClustPA(proj)
-sspa.sspa_cluster(mat, pathways_dictionary, projection=True)
+kpca_scores = sspa.sspa_kpca(processed_data_mapped, reactome_pathways)
 
 # z-score
-sspa.sspa_zscore(mat, pathways_dictionary)
+zscore_res = sspa.sspa_zscore(processed_data_mapped, reactome_pathways)
 
 # SVD (PLAGE)
-sspa.sspa_svd(mat, pathways_dictionary)
+svd_res = sspa.sspa_svd(processed_data_mapped, reactome_pathways)
+
+# GSVA
+gsva_res = sspa.sspa_gsva(processed_data_mapped, reactome_pathways)
 ```
 
-### Additional available conventional pathway analysis methods
-Over representation analysis (ORA)
-
-cutoff_thresh: threshold on the FDR adjusted P-value to select differential metabolites
-
-```
-# ORA
-sspa.sspa_ora(mat, metadata_column, pathways_dictionary, cutoff_thresh=0.05):
-```
 
 ## License
 GNU GPL 3.0
