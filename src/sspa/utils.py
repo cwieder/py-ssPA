@@ -32,6 +32,8 @@ def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
     disease.drop(['Target'], axis=1, inplace=True)
     ctrl = matrix.loc[matrix["Target"] != 0]
     ctrl.drop(['Target'], axis=1, inplace=True)
+    matrix = matrix.drop(['Target'], axis=1)
+    
     if testtype == "mwu":
         pvalues = stats.mannwhitneyu(disease, ctrl, axis=0)[1]
     else:
