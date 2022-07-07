@@ -66,7 +66,16 @@ processed_data_mapped = sspa.map_identifiers(conversion_table, output_id_type="C
 ## Conventional pathway analysis
 ORA
 ```
-sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, custom_bgset=None)
+ora = sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, custom_background=None)
+
+# perform ORA 
+ora_res = ora.over_representation_analysis()
+
+# get t-test results
+ora.ttest_res
+
+# obtain list of differential molecules input to ORA
+ora.DA_molecules
 ```
 
 GSEA
