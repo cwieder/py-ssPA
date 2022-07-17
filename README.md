@@ -6,7 +6,7 @@
 
 Full walkthrough notebook available on Google Colab:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/11e4G7hulpVgUXlEHktZMnjzQAaXcFEeb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1X_ZBjXYxBVv43LcArRv2aB2HJkUp8A4x?usp=sharing)
 
 ## Quickstart
 ```
