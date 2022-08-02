@@ -54,7 +54,6 @@ def pathwaydf_to_dict(df):
         pathway_compounds = list(set(pathways_df.loc[pathway, :].tolist()))
         pathway_compounds = [str(i) for i in pathway_compounds if str(i) not in ["None", np.nan, 'nan']]
 
-        cpds = pathway_compounds[1:]
-        if len(cpds) > 1:
-            pathway_dict[pathway] = cpds
+        if len(pathway_compounds) > 1:
+            pathway_dict[pathway] = pathway_compounds
     return pathway_dict
