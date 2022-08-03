@@ -4,6 +4,7 @@
 import requests
 import re
 import pandas as pd
+import warnings
 
 def download_KEGG(organism, filepath=None):
     print("Beginning KEGG download...")
@@ -96,3 +97,54 @@ def download_reactome(organism, filepath=None):
     print("Complete!")
 
     return pathways_df
+
+class MetExplorePaths:
+    '''
+    Class for downloading metexplore metabolic models in the form of pathways with ChEBI identifiers
+    '''
+    def __init__(self, model, filepath=None):
+        self.model = model
+        self.filepath = filepath
+        self.nChEBI = None
+        self.nMetab = None
+        self.pathways = None
+        # downloads pathways on object instantiation
+        self.download_metexplore()
+
+    def download_metexplore(self):
+        warnings.filterwarnings("ignore")
+        metexploreURL = "https://metexplore.toulouse.inrae.fr/metexplore-api/"+str(self.model)+"/pathwaymetabolitechebi/"
+        stats_nchebi_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/chebi/"
+        stats_nmetab_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/nbMetab/"
+        
+        stats_nmetab = requests.get(stats_nmetab_url, verify=False)
+        stats_nchebi = requests.get(stats_nchebi_url, verify=False)
+        data_api = requests.get(metexploreURL, verify=False)
+        pathways_json = data_api.json()
+
+        pathways_df = pd.DataFrame.from_dict(pathways_json, orient='columns')
+        del(pathways_df["id"]) 
+        
+        pathways = pathways_df.merge(pathways_df.Metabolites.apply(pd.Series), right_index=True, left_index=True)
+        del(pathways["Metabolites"])
+        
+        pathways = pathways.fillna("None")
+        pathways.rename(columns={'name':"Pathway_name"}, inplace = True)
+        
+        pathways = pathways.fillna("None")
+        pathways = pathways.set_index('dbIdentifier')
+        pathways = pathways.drop(columns=['len'])
+        pathways.rename(columns={'name':"Pathway_name"}, inplace = True)
+
+        #if file path provided save gmt to drive
+        if self.filepath:
+            fpath = self.filepath + "/MetExplorePathways_" + str(self.model) + ".gmt"
+            pathways.to_csv(fpath, sep="\t", header=False)
+            print("MetExplore metabolic network pathways file saved to " + fpath)
+
+        self.pathways = pathways
+        self.nChEBI = stats_nchebi.text.split("\n")[2]
+        self.nMetab = stats_nmetab.text.split("\n")[2]
+        
+        print("Complete!")
+        return pathways
