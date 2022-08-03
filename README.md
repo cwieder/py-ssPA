@@ -1,5 +1,6 @@
 # sspa
 ![sspa_logo](sspa_logo.png)
+[![DOI](https://zenodo.org/badge/442446643.svg)](https://zenodo.org/badge/latestdoi/442446643)
 
 
 ## Single sample pathway analysis tools for omics data
@@ -109,6 +110,8 @@ gsva_res = sspa.sspa_gsva(processed_data_mapped, reactome_pathways)
 GNU GPL 3.0
 
 ## Citation
+[![DOI](https://zenodo.org/badge/442446643.svg)](https://zenodo.org/badge/latestdoi/442446643)
+
 If you are using this tool in your work, please cite: <div class="csl-entry">Wieder, C., Lai, R. P. J., &#38; Ebbels, T. (2022). Single sample pathway analysis in metabolomics : performance evaluation and application. <i>BioRxiv</i>, 2022.04.11.487976. https://doi.org/10.1101/2022.04.11.487976</div>
 
 If you are using the methods SVD (PLAGE), z-score, or ORA, please cite the original publications alongside this tool.
