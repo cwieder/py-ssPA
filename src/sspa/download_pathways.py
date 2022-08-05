@@ -102,10 +102,11 @@ class MetExplorePaths:
     '''
     Class for downloading metexplore metabolic models in the form of pathways with ChEBI identifiers
     '''
-    def __init__(self, model, filepath=None):
+    def __init__(self, model, id_type, filepath=None):
         self.model = model
+        self.id_type = id_type
         self.filepath = filepath
-        self.nChEBI = None
+        self.nMappedID = None
         self.nMetab = None
         self.pathways = None
         # downloads pathways on object instantiation
@@ -113,8 +114,8 @@ class MetExplorePaths:
 
     def download_metexplore(self):
         warnings.filterwarnings("ignore")
-        metexploreURL = "https://metexplore.toulouse.inrae.fr/metexplore-api/"+str(self.model)+"/pathwaymetabolitechebi/"
-        stats_nchebi_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/chebi/"
+        metexploreURL = "https://metexplore.toulouse.inrae.fr/metexplore-api/"+str(self.model)+"/pathwaymetabolite/"+str(self.id_type)
+        stats_nchebi_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/"+str(self.id_type)
         stats_nmetab_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/nbMetab/"
         
         stats_nmetab = requests.get(stats_nmetab_url, verify=False)
@@ -138,12 +139,12 @@ class MetExplorePaths:
 
         #if file path provided save gmt to drive
         if self.filepath:
-            fpath = self.filepath + "/MetExplorePathways_" + str(self.model) + ".gmt"
+            fpath = self.filepath + "/MetExplorePathways_" + str(self.model) + "_" + str(self.id_type) + ".gmt"
             pathways.to_csv(fpath, sep="\t", header=False)
             print("MetExplore metabolic network pathways file saved to " + fpath)
 
         self.pathways = pathways
-        self.nChEBI = stats_nchebi.text.split("\n")[2]
+        self.nMappedID = stats_nchebi.text.split("\n")[2]
         self.nMetab = stats_nmetab.text.split("\n")[2]
         
         print("Complete!")
