@@ -5,6 +5,7 @@ import requests
 import re
 import pandas as pd
 import warnings
+import json
 
 def download_KEGG(organism, filepath=None):
     print("Beginning KEGG download...")
@@ -69,14 +70,14 @@ def download_reactome(organism, filepath=None):
     print("Beginning Reactome download...")
 
      # get all pathways
-    url = 'https://reactome.org/download/current/ChEBI2Reactome_All_Levels.txt'
+    url = 'https://reactome.org/download/current/mapped2Reactome_All_Levels.txt'
     f = pd.read_csv(url, sep="\t", header=None)
     
-    f.columns = ['CHEBI', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
+    f.columns = ['mapped', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
     f_filt = f[f.species == organism]
     name_dict = dict(zip(f_filt['pathway_ID'], f_filt['pathway_name']))
 
-    groups = f_filt.groupby(['pathway_ID'])['CHEBI'].apply(list).to_dict()
+    groups = f_filt.groupby(['pathway_ID'])['mapped'].apply(list).to_dict()
     groups = {k: list(set(v)) for k, v in groups.items()}
 
     df = pd.DataFrame.from_dict(groups, orient='index', dtype="object")
@@ -100,7 +101,7 @@ def download_reactome(organism, filepath=None):
 
 class MetExplorePaths:
     '''
-    Class for downloading metexplore metabolic models in the form of pathways with ChEBI identifiers
+    Class for downloading metexplore metabolic models in the form of pathways with mapped identifiers
     '''
     def __init__(self, model, id_type, filepath=None):
         self.model = model
@@ -114,12 +115,12 @@ class MetExplorePaths:
 
     def download_metexplore(self):
         warnings.filterwarnings("ignore")
-        metexploreURL = "https://metexplore.toulouse.inrae.fr/metexplore-api/"+str(self.model)+"/pathwaymetabolite/"+str(self.id_type)
-        stats_nchebi_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/"+str(self.id_type)
+        metexploreURL = "https://metexplore.toulouse.inrae.fr/metexplore-api/"+str(self.model)+"/pathwaymetabolite/"+str(self.id_type)+"/"
+        stats_nmapped_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/"+str(self.id_type)+"/"
         stats_nmetab_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/nbMetab/"
         
         stats_nmetab = requests.get(stats_nmetab_url, verify=False)
-        stats_nchebi = requests.get(stats_nchebi_url, verify=False)
+        stats_nmapped = requests.get(stats_nmapped_url, verify=False)
         data_api = requests.get(metexploreURL, verify=False)
         pathways_json = data_api.json()
 
@@ -144,7 +145,7 @@ class MetExplorePaths:
             print("MetExplore metabolic network pathways file saved to " + fpath)
 
         self.pathways = pathways
-        self.nMappedID = stats_nchebi.text.split("\n")[2]
+        self.nMappedID = stats_nmapped.text.split("\n")[2]
         self.nMetab = stats_nmetab.text.split("\n")[2]
         
         print("Complete!")
