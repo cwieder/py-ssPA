@@ -1,0 +1,12 @@
+site_name: ssPA Docs
+
+theme:
+  name: "material"
+
+plugins:
+  - mkdocstrings
+
+nav:
+  - index.md
+  - tutorials.md
+  - reference.md
