@@ -19,10 +19,14 @@ class sspa_ora:
     def over_representation_analysis(self):
         """
         Function for over representation analysis using Fisher exact test (right tailed)
-        :param DA_list: List of differentially abundant metabolite IDENTIFIERS
-        :param background_list: background list of IDENTIFIERS
-        :param pathways_df: pathway dataframe containing compound identifiers
-        :return: DataFrame of ORA results for each pathway, p-value, q-value, hits ratio
+
+        Args:
+            DA_list: List of differentially abundant metabolite IDENTIFIERS
+            ackground_list: background list of IDENTIFIERS
+            pathways_df: pathway dataframe containing compound identifiers
+
+        Returns:
+            DataFrame of ORA results for each pathway, p-value, q-value, hits ratio
         """
 
         pathway_names = self.pathways["Pathway_name"].to_dict()
