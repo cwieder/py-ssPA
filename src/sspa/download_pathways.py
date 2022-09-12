@@ -8,6 +8,9 @@ import warnings
 import json
 
 def download_KEGG(organism, filepath=None):
+    '''
+    Function for KEGG pathway download
+    '''
     print("Beginning KEGG download...")
     # get all pathways
     url = 'http://rest.kegg.jp/list/pathway/'+organism
@@ -67,6 +70,9 @@ def download_KEGG(organism, filepath=None):
     return df
 
 def download_reactome(organism, filepath=None):
+    '''
+    Function for Reactome pathway download
+    '''
     print("Beginning Reactome download...")
 
      # get all pathways
@@ -102,6 +108,15 @@ def download_reactome(organism, filepath=None):
 class MetExplorePaths:
     '''
     Class for downloading metexplore metabolic models in the form of pathways with mapped identifiers
+
+    Attributes:
+    model: string, identifier of genome scale metabolic model available on MetExplore
+    id_type: string, identifier type for the model pathways
+    filepath: string, filepath to save the pathway file to, default is None (save to variable)
+    nMappedID: Number of metabolites mapping to the selected identifier type
+    nMetab: Number of metabolites in the model
+    pathways: GMT format pathway pandas DataFrame
+
     '''
     def __init__(self, model, id_type, filepath=None):
         self.model = model
@@ -114,6 +129,9 @@ class MetExplorePaths:
         self.download_metexplore()
 
     def download_metexplore(self):
+        '''
+        Function to download MetExplore pathways
+        '''
         warnings.filterwarnings("ignore")
         metexploreURL = "https://metexplore.toulouse.inrae.fr/metexplore-api/"+str(self.model)+"/pathwaymetabolite/"+str(self.id_type)+"/"
         stats_nmapped_url = "https://metexplore.toulouse.inrae.fr/metexplore-api/stat/"+str(self.model)+"/"+str(self.id_type)+"/"
