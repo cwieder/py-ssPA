@@ -10,6 +10,9 @@ import json
 def download_KEGG(organism, filepath=None):
     '''
     Function for KEGG pathway download
+    Args:
+    organism: KEGG 3 letter organism code
+    filepath: filepath to save pathway file to 
     '''
     print("Beginning KEGG download...")
     # get all pathways
@@ -72,6 +75,9 @@ def download_KEGG(organism, filepath=None):
 def download_reactome(organism, filepath=None):
     '''
     Function for Reactome pathway download
+    Args:
+    organism: Reactome organism name
+    filepath: filepath to save pathway file to 
     '''
     print("Beginning Reactome download...")
 

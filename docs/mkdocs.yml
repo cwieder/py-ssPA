@@ -1,0 +1,31 @@
+site_name: ssPA Docs
+
+theme:
+  name: "material"
+  palette:
+    primary: cyan
+    accent: cyan
+
+docs_dir: 'docs'
+site_dir: 'site'
+
+
+plugins:
+  - search:
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          rendering:
+            show_source: false
+          options:
+            docstring_style: google
+            docstring_options:
+              ignore_init_summary: no
+            merge_init_into_class: no
+            show_submodules: yes
+
+nav:
+  - index.md
+  - tutorials.md
+  - reference.md

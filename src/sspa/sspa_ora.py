@@ -4,7 +4,14 @@ import scipy.stats as stats
 import statsmodels.api as sm
 import sspa.utils as utils
 
+"""
+Module docstring
+"""
+
 class sspa_ora:
+    """
+    Class for overrepresentation analysis 
+    """
     def __init__(self, mat, metadata, pathways, DA_cutoff, custom_background=None):
         self.data = mat
         self.metadata = metadata
