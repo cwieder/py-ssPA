@@ -2,7 +2,7 @@ from pkg_resources import get_distribution
 __version__ = get_distribution('sspa').version
 
 from .process_pathways import process_reactome, process_kegg, process_gmt
-from .sspa_cluster import sspa_cluster
+from .sspa_cluster import sspa_ssClustPA
 from .sspa_kpca import sspa_kpca
 from .sspa_zscore import sspa_zscore
 from .sspa_svd import sspa_svd
