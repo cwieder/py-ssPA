@@ -6,8 +6,10 @@ def identifier_conversion(input_type, compound_list):
     """
     Use Metaboanalyst API for identifier conversion
     Args:
-    input_type: identifier type present in input data
-    compound_list: list of identifiers in the data
+        input_type (str): identifier type present in input data - any of ('name', 'hmdb', 'pubchem', 'chebi', 'metlin', 'kegg')
+        compound_list (list): list of identifiers in the data
+    Returns:
+        (pd.DataFrame) Dataframe containing identifier matches 
     """
     url = "http://api.xialab.ca/mapcompounds"
 
@@ -31,35 +33,15 @@ def identifier_conversion(input_type, compound_list):
     return resp_df
 
 def map_identifiers(query_df, output_id_type, matrix):
-    """Fetches rows from a Smalltable.
-
-    Retrieves rows pertaining to the given keys from the Table instance
-    represented by table_handle.  String keys will be UTF-8 encoded.
-
-    Args:
-        table_handle: An open smalltable.Table instance.
-        keys: A sequence of strings representing the key of each table
-          row to fetch.  String keys will be UTF-8 encoded.
-        require_all_keys: If True only rows with values set for all keys will be
-          returned.
-
-    Returns:
-        A dict mapping keys to the corresponding table row data
-        fetched. Each row is represented as a tuple of strings. For
-        example:
-
-        {b'Serak': ('Rigel VII', 'Preparer'),
-         b'Zim': ('Irk', 'Invader'),
-         b'Lrrr': ('Omicron Persei 8', 'Emperor')}
-
-        Returned keys are always bytes.  If a key from the keys argument is
-        missing from the dictionary, then that row was not found in the
-        table (and require_all_keys must have been False).
-
-    Raises:
-        IOError: An error occurred accessing the smalltable.
     """
-
+    Map desired identifiers to input data
+    Args:
+        query_df (pd.DataFrame): DataFrame obtained using the identifier_conversion function containing ID mappings
+        output_id_type (str): Any of ('name', 'hmdb', 'pubchem', 'chebi', 'metlin', 'kegg')
+        matrix (pd.DataFrame): sample-by-compound metabolomics data matrix
+    Returns:
+        Sample-by-compound metabolomics data matrix with mapped identifiers, any compounds without a matching ID will be dropped
+    """
 
 
     # output id type can be any of ['HMDB', 'PubChem', 'ChEBI', 'KEGG', 'METLIN','SMILES']

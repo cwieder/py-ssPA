@@ -8,11 +8,16 @@ def load_example_data(omicstype="metabolomics", processed=True):
     """
     Loads example datasets
 
-    :param omicstype: type of omics for example data. Available options are "metabolomics" or "transcriptomics"
-    Metabolomics data are from Su et al 2020 https://doi.org/10.1016/j.cell.2020.10.037
+    Args:
+        omicstype (str): type of omics for example data. 
+            Available options are "metabolomics" or "transcriptomics". 
+            Metabolomics data are from Su et al 2020 https://doi.org/10.1016/j.cell.2020.10.037.
+            Transcriptomics data - TO BE IMPLEMENTED
+        processed (bool): Load processed (normalised, scaled) or raw data
 
-    :return: pre-processed omics data matrix consisting of m samples and n entities (metabolites/genes)
-    in the form of a pandas DataFrame. Contains one of more metadata columns at the end.
+    Returns:
+        pre-processed omics data matrix consisting of m samples and n entities (metabolites/genes) in the form of a pandas DataFrame. 
+        Contains one of more metadata columns at the end.
     """
 
     if omicstype == "metabolomics":
@@ -27,6 +32,18 @@ def load_example_data(omicstype="metabolomics", processed=True):
 
 
 def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
+    """
+    Performs two-sample independent t-tests
+
+    Args:
+        matrix (pd.DataFrame): processed sample-by-compound metabolomics dataframe
+        classes (pd.Series): pandas series containing phenotype metadata (e.g. 'COVID', 'NON-COVID')
+        multiple_correction_method (str): see https://www.statsmodels.org/dev/generated/statsmodels.stats.multitest.multipletests.html for options
+        testtype (str): Default is t-test, "mwu" also available to implement the Mann Whitney U test
+
+    Returns:
+        pd.DataFrame containing p-values and corrected p-values for each metabolite
+    """
     metabolites = matrix.columns.tolist()
     matrix['Target'] = pd.factorize(classes)[0]
     disease = matrix.loc[matrix["Target"] == 0]
@@ -47,6 +64,13 @@ def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
 
 
 def pathwaydf_to_dict(df):
+    """
+    Converts pathway dataframe to dictionary, with pathway IDs as keys and metabolite lists as values
+    Args:
+        df (pd.DataFrame): Pandas DataFrame containing pathways 
+    Returns: 
+        python dict pathway representation
+    """
     pathways_df = df.drop(["Pathway_name"], axis=1)
     pathway_dict = {}
 

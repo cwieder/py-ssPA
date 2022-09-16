@@ -3,6 +3,17 @@ import pkg_resources
 import sspa.download_pathways 
 
 def process_reactome(organism, infile=None, download_latest=False, filepath=None):
+    '''
+    Function to load Reactome pathways 
+    Args:
+        organism (str): Reactome organism name
+        infile (str): default None, provide a Reactome pathway file to process into the GMT-style dataframe 
+        download_latest (Bool): Downloads the latest version of Reactome metabolic pathways
+        filepath (str): filepath to save pathway file to, default is None - save to variable
+    Returns: 
+        GMT-like pd.DataFrame containing Reactome pathways
+    '''
+
     # Process CHEBI to reactome data
 
     if download_latest:
@@ -31,7 +42,16 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
         return pathways_df
 
 def process_kegg(organism, infile=None, download_latest=False, filepath=None):
-
+    '''
+    Function to load KEGG pathways 
+    Args:
+        organism (str): KEGG organism code
+        infile (str): default None, provide a KEGG pathway file to process into the GMT-style dataframe 
+        download_latest (Bool): Downloads the latest version of KEGG metabolic pathways
+        filepath (str): filepath to save pathway file to, default is None - save to variable
+    Returns: 
+        GMT-like pd.DataFrame containing KEGG pathways
+    '''
     if download_latest:
         pathways_df = sspa.download_pathways.download_KEGG(organism, filepath)
         return pathways_df
@@ -53,6 +73,13 @@ def process_kegg(organism, infile=None, download_latest=False, filepath=None):
         return pathways_df
 
 def process_gmt(infile):
+    '''
+    Function to load pathways from a custom GMT-like file
+    Args:
+        infile (str): default None, provide a GMT pathway file to process into the GMT-style dataframe, file ending can be .csv or .gmt
+    Returns: 
+        GMT-like pd.DataFrame containing pathways
+    '''
     if infile[-4:] == ".csv":
         pathways_df = pd.read_csv(infile, index_col=0)
     elif infile[-4:] == ".gmt":

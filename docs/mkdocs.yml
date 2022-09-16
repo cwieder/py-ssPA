@@ -26,7 +26,10 @@ plugins:
             show_submodules: yes
 
 nav:
-  - index.md
-  - tutorials.md
-  - gendocs_docs/reference.md
-
+  - Home: index.md
+  - Tutorials: tutorials.md
+  - Reference:
+    - gendocs_docs/reference/identifier_conversion.md
+    - gendocs_docs/reference/download_pathways.md
+    - gendocs_docs/reference/load_pathways.md
+    - gendocs_docs/reference/utils.md
