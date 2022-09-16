@@ -1,0 +1,21 @@
+sources_dir: docs/docs/gendocs_docs
+templates_dir: docs/docs/gendocs_docs
+repo: https://github.com/cwieder/py-ssPA 
+version: master
+
+pages:
+  # - page: "api/train/model.md"
+  #   source: "tensorx/train/model.py"
+  #   methods:
+  #     - Model:
+  #         - train
+  #         - set_optimizer
+
+  - page: "reference.md"
+    source: "src/sspa/download_pathways.py"
+    functions:
+      - download_KEGG
+      - download_reactome
+    classes:
+      - MetExplorePaths
+

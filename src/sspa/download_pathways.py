@@ -11,8 +11,10 @@ def download_KEGG(organism, filepath=None):
     '''
     Function for KEGG pathway download
     Args:
-    organism: KEGG 3 letter organism code
-    filepath: filepath to save pathway file to 
+        organism (str): KEGG 3 letter organism code
+        filepath (str): filepath to save pathway file to, default is None - save to variable
+    Returns: 
+        GMT-like pd.DataFrame containing KEGG pathways
     '''
     print("Beginning KEGG download...")
     # get all pathways
@@ -76,8 +78,10 @@ def download_reactome(organism, filepath=None):
     '''
     Function for Reactome pathway download
     Args:
-    organism: Reactome organism name
-    filepath: filepath to save pathway file to 
+        organism (str): Reactome organism name
+        filepath (str): filepath (str): filepath to save pathway file to, default is None - save to variable
+    Returns: 
+        GMT-like pd.DataFrame containing Reactome pathways
     '''
     print("Beginning Reactome download...")
 
@@ -116,12 +120,12 @@ class MetExplorePaths:
     Class for downloading metexplore metabolic models in the form of pathways with mapped identifiers
 
     Attributes:
-    model: string, identifier of genome scale metabolic model available on MetExplore
-    id_type: string, identifier type for the model pathways
-    filepath: string, filepath to save the pathway file to, default is None (save to variable)
-    nMappedID: Number of metabolites mapping to the selected identifier type
-    nMetab: Number of metabolites in the model
-    pathways: GMT format pathway pandas DataFrame
+        model (str): identifier of genome scale metabolic model available on MetExplore
+        id_type (str): identifier type for the model pathways
+        filepath (str): filepath to save the pathway file to, default is None (save to variable)
+        nMappedID (int): Number of metabolites mapping to the selected identifier type
+        nMetab (int): Number of metabolites in the model
+        pathways (pd.DataFrame): GMT-like format pathway DataFrame
 
     '''
     def __init__(self, model, id_type, filepath=None):

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   sodipodi:docname="sspa_logo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.70196215"
+     inkscape:cx="345.46022"
+     inkscape:cy="288.47709"
+     inkscape:window-width="1312"
+     inkscape:window-height="847"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="116.12273"
+       y="341.63643"
+       width="622.68708"
+       height="146.41561"
+       id="rect5987" />
+    <rect
+       x="95.927469"
+       y="124.53742"
+       width="555.36956"
+       height="217.09901"
+       id="rect187" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-1.7811094,-0.89055472)"
+       id="text185"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:192px;line-height:1.25;font-family:'DIN Alternate';-inkscape-font-specification:'DIN Alternate, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect187);fill:#0088aa;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/Users/cw2019/Documents/PhD/sspa_logo.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         x="95.927734"
+         y="300.24199"
+         id="tspan20105">ss<tspan
+   style="fill:#006680"
+   id="tspan20103">pa</tspan></tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,100.39494,-39.895875)"
+       id="text5985"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32px;line-height:1.25;font-family:'DIN Alternate';-inkscape-font-specification:'DIN Alternate, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect5987);fill:#333333;fill-opacity:1;stroke:none"
+       inkscape:export-filename="/Users/cw2019/Documents/PhD/sspa_logo.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         x="116.12305"
+         y="370.92087"
+         id="tspan20107">single sample
+</tspan><tspan
+         x="116.12305"
+         y="410.92087"
+         id="tspan20109">pathway analysis
+</tspan><tspan
+         x="116.12305"
+         y="450.92087"
+         id="tspan20111">toolkit</tspan></text>
+  </g>
+</svg>

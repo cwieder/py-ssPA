@@ -28,4 +28,5 @@ plugins:
 nav:
   - index.md
   - tutorials.md
-  - reference.md
+  - gendocs_docs/reference.md
+
