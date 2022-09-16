@@ -1,13 +1,16 @@
 # sspa
 ![sspa_logo](sspa_logo.png)
-[![DOI](https://zenodo.org/badge/442446643.svg)](https://zenodo.org/badge/latestdoi/442446643)
 
+[![DOI](https://zenodo.org/badge/442446643.svg)](https://zenodo.org/badge/latestdoi/442446643)
+[![](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat)](https://readthedocs.org/projects/py-ssPA/badge/)
 
 ## Single sample pathway analysis tools for omics data
 
 Full walkthrough notebook available on Google Colab:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1X_ZBjXYxBVv43LcArRv2aB2HJkUp8A4x?usp=sharing)
+
+Documentation is available on our [Read the Docs page](https://cwieder.github.io/py-ssPA/)
 
 ## Quickstart
 ```
