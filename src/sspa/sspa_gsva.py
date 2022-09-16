@@ -14,12 +14,15 @@ def sspa_gsva(mat, pathway_df, min_entity=2):
     Hanzelmann et al GSVA method for single sample pathway analysis. 
     This is an rpy2 wrapper script to run the R implementation of GSVA.
 
-    :param mat: pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
-    Do not include metadata columns
-    :param pathways: Dictionary of pathway identifiers (keys) and corresponding list of pathway entities (values).
-    Entity identifiers must match those in the matrix columns
+    Args:
+        mat (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+        Do not include metadata columns
+        pathways (pd.DataFrame): Dictionary of pathway identifiers (keys) and corresponding list of pathway entities (values).
+        Entity identifiers must match those in the matrix columns
+        min_entity (int): minimum number of metabolites mapping to pathways for ssPA to be performed
 
-    :return: pandas DataFrame of pathway scores derived using the GSVA method. Columns represent pathways and rows represnt samples.
+    Returns:
+        pandas DataFrame of pathway scores derived using the GSVA method. Columns represent pathways and rows represent samples.
     """
 
     pathways = utils.pathwaydf_to_dict(pathway_df)

@@ -11,6 +11,13 @@ Module docstring
 class sspa_ora:
     """
     Class for overrepresentation analysis 
+
+    Attributes:
+        mat (pd.DataFrame): dataframe containing input metabolomics data
+        metadata (pd.Series): series containing phenotype metadata e.g 'COVID', 'NON-COVID'
+        pathways (pd.DataFrame): pathway dataframe containing compound identifiers
+        DA_cutoff (float): pFDR cutoff for selecting differential metabolites e.g. 0.05 or 0.01
+        custom_background (list): background list of identifiers, default is to use annotated compounds in input data (i.e. mat.columns)
     """
     def __init__(self, mat, metadata, pathways, DA_cutoff, custom_background=None):
         self.data = mat
@@ -24,14 +31,9 @@ class sspa_ora:
         self.results = []
 
     def over_representation_analysis(self):
+
         """
         Function for over representation analysis using Fisher exact test (right tailed)
-
-        Args:
-            DA_list: List of differentially abundant metabolite IDENTIFIERS
-            ackground_list: background list of IDENTIFIERS
-            pathways_df: pathway dataframe containing compound identifiers
-
         Returns:
             DataFrame of ORA results for each pathway, p-value, q-value, hits ratio
         """

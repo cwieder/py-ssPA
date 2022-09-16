@@ -3,8 +3,8 @@ site_name: ssPA Docs
 theme:
   name: "material"
   palette:
-    primary: cyan
-    accent: cyan
+    primary: deep purple
+    accent: deep purple
 
 docs_dir: 'docs'
 site_dir: 'site'
@@ -33,3 +33,14 @@ nav:
     - gendocs_docs/reference/download_pathways.md
     - gendocs_docs/reference/load_pathways.md
     - gendocs_docs/reference/utils.md
+    - Pathway analysis:
+      - gendocs_docs/reference/ORA.md
+      - gendocs_docs/reference/GSEA.md
+      - Single sample methods:
+        - gendocs_docs/reference/SVD.md
+        - gendocs_docs/reference/kPCA.md
+        - gendocs_docs/reference/ssClustPA.md
+        - gendocs_docs/reference/GSVA.md
+        - gendocs_docs/reference/ssGSEA.md
+        - gendocs_docs/reference/zscore.md
+  

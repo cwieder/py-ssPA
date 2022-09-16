@@ -10,6 +10,16 @@ from rpy2.robjects.conversion import localconverter
 base = importr('base')
 
 def sspa_fgsea(mat, metadata, pathway_df, min_entity=2):
+    """
+    Function for gene/metabolite set enrichment analysis using fGSEA method (Korotkevich et al.)
+    Args:
+        mat (pd.DataFrame): dataframe containing input metabolomics data
+        metadata (pd.Series): series containing phenotype metadata e.g 'COVID', 'NON-COVID'
+        pathway_df (pd.DataFrame): pathway dataframe containing compound identifiers
+        min_entity (int): minimum number of metabolites mapping to a pathway for it to be tested
+    Returns:
+        DataFrame of GSEA results for each pathway, p-value, q-value, ES, NES, leading egde genes/metabolites
+    """
 
     pathway_names = pathway_df["Pathway_name"].to_dict()
     pathways = utils.pathwaydf_to_dict(pathway_df)
