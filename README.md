@@ -4,8 +4,19 @@
 [![DOI](https://zenodo.org/badge/442446643.svg)](https://zenodo.org/badge/latestdoi/442446643)
 [![](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat)](https://readthedocs.org/projects/py-ssPA/badge/)
 
-## Single sample pathway analysis tools for omics data
+## Single sample pathway analysis toolkit
+sspa provides a Python interface for metabolomics pathway analysis. In addition to conventional methods over-representation analysis (ORA) and gene/metabolite set enrichment analysis (GSEA), it also provides a wide range of single-sample pathway analysis (ssPA) methods. 
 
+## Features
+- Over-representation analysis
+- Metabolite set enrichment analysis (based on GSEA)
+- Single-sample pathway analysis
+- Compound identifier conversion
+- Pathway database download (KEGG, Reactome, and MetExplore metabolic networks)
+
+Although this package is designed to provide a user-friendly interface for metabolomics pathway analysis, the methods are also applicable to other datatypes such as normalised RNA-seq data. 
+
+## Documentation and tutorials
 Full walkthrough notebook available on Google Colab:
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1X_ZBjXYxBVv43LcArRv2aB2HJkUp8A4x?usp=sharing)
