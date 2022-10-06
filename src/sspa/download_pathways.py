@@ -86,14 +86,14 @@ def download_reactome(organism, filepath=None):
     print("Beginning Reactome download...")
 
      # get all pathways
-    url = 'https://reactome.org/download/current/mapped2Reactome_All_Levels.txt'
+    url = 'https://reactome.org/download/current/ChEBI2Reactome_All_Levels.txt'
     f = pd.read_csv(url, sep="\t", header=None)
     
-    f.columns = ['mapped', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
+    f.columns = ['CHEBI', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
     f_filt = f[f.species == organism]
     name_dict = dict(zip(f_filt['pathway_ID'], f_filt['pathway_name']))
 
-    groups = f_filt.groupby(['pathway_ID'])['mapped'].apply(list).to_dict()
+    groups = f_filt.groupby(['pathway_ID'])['CHEBI'].apply(list).to_dict()
     groups = {k: list(set(v)) for k, v in groups.items()}
 
     df = pd.DataFrame.from_dict(groups, orient='index', dtype="object")
