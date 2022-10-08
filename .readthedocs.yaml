@@ -2,8 +2,9 @@
 version: 2
 
 tools:
-  python: "3.9"
-  # r: "4.1"
+  os: ubuntu-20.04  # <- add this line
+    python: "3.9"
+    r: "4.1"
 
 mkdocs:
   configuration: docs/mkdocs.yml
