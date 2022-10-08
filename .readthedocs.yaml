@@ -1,8 +1,9 @@
 # Required
 version: 2
 
-tools:
-  os: ubuntu-20.04  # <- add this line
+build:
+  os: ubuntu-20.04
+  tools:
     python: "3.9"
     r: "4.1"
 
