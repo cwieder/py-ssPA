@@ -1,9 +1,6 @@
 # Required
 version: 2
 
-# Set the version of Python and other tools you might need
-build:
-  tools:
 
 mkdocs:
   configuration: docs/mkdocs.yml
