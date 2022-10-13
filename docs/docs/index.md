@@ -8,7 +8,21 @@ sspa provides a Python interface for metabolomics pathway analysis. In addition 
 - Compound identifier conversion
 - Pathway database download (KEGG, Reactome, and MetExplore metabolic networks)
 
-Although this package is designed to provide a user-friendly interface for metabolomics pathway analysis, the methods are also applicable to other datatypes such as normalised RNA-seq data. 
+``` mermaid
+graph LR
+  A[Download pathways ] --> C;
+  B[Input data] --> G[Identifier conversion]
+  G -->C[Pathway analysis];
+  C --> D[ORA];
+  C --> E[GSEA];
+  C --> F[ssPA];
+```
+
+!!! note
+
+    Although this package is designed to provide a user-friendly interface for metabolomics pathway analysis, the methods are also applicable to other datatypes such as normalised RNA-seq data. Gene/protein pathway collections can be input as .GMT files (see tutorials).
+
+
 
 ## Installation
 ```
