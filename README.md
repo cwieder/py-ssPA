@@ -153,3 +153,6 @@ Single-sample pathway analysis in metabolomics
    year = {2022},
 }
 ```
+
+## Contributing
+Read our [contributor's guide](https://github.com/cwieder/py-ssPA/blob/main/CONTRIBUTING.md) to get started
