@@ -2,7 +2,7 @@
 
 
 ### process_reactome
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/process_pathways.py/#L5)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/process_pathways.py\#L5)
 ```python
 .process_reactome(
    organism, infile = None, download_latest = False, filepath = None
@@ -28,7 +28,7 @@ GMT-like pd.DataFrame containing Reactome pathways
 
 
 ### process_kegg
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/process_pathways.py/#L44)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/process_pathways.py\#L44)
 ```python
 .process_kegg(
    organism, infile = None, download_latest = False, filepath = None
@@ -54,7 +54,7 @@ GMT-like pd.DataFrame containing KEGG pathways
 
 
 ### process_gmt
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/process_pathways.py/#L75)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/process_pathways.py\#L75)
 ```python
 .process_gmt(
    infile

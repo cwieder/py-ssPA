@@ -2,7 +2,7 @@
 
 
 ## MetExplorePaths
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/download_pathways.py/#L118)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/download_pathways.py\#L118)
 ```python 
 MetExplorePaths(
    model, id_type, filepath = None
@@ -29,7 +29,7 @@ Class for downloading metexplore metabolic models in the form of pathways with m
 
 
 ### .download_metexplore
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/download_pathways.py/#L141)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/download_pathways.py\#L141)
 ```python
 .download_metexplore()
 ```
@@ -41,7 +41,7 @@ Function to download MetExplore pathways
 
 
 ### download_KEGG
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/download_pathways.py/#L10)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/download_pathways.py\#L10)
 ```python
 .download_KEGG(
    organism, filepath = None
@@ -65,7 +65,7 @@ GMT-like pd.DataFrame containing KEGG pathways
 
 
 ### download_reactome
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/download_pathways.py/#L77)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/download_pathways.py\#L77)
 ```python
 .download_reactome(
    organism, filepath = None
