@@ -102,7 +102,7 @@ sspa.sspa_fgsea(processed_data_mapped, covid_data['Group'], reactome_pathways)
 ## Single sample pathway analysis methods
 ```
 # ssclustPA
-ssclustpa_proj_res = sspa.sspa_cluster(processed_data_mapped, reactome_pathways)
+ssclustpa_res = sspa.sspa_ssClustPA(processed_data_mapped, reactome_pathways)
 
 # kPCA
 kpca_scores = sspa.sspa_kpca(processed_data_mapped, reactome_pathways)

@@ -2,7 +2,7 @@
 
 
 ### load_example_data
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/utils.py/#L7)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/utils.py\#L7)
 ```python
 .load_example_data(
    omicstype = 'metabolomics', processed = True
@@ -31,7 +31,7 @@ Contains one of more metadata columns at the end.
 
 
 ### t_tests
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/utils.py/#L34)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/utils.py\#L34)
 ```python
 .t_tests(
    matrix, classes, multiple_correction_method, testtype = 'ttest'
@@ -58,7 +58,7 @@ pd.DataFrame containing p-values and corrected p-values for each metabolite
 
 
 ### pathwaydf_to_dict
-[source](https://github.com/cwieder/py-ssPA/blob/master/src/sspa/utils.py/#L66)
+[source](https://github.com/cwieder/py-ssPA\blob\master\src/sspa/utils.py\#L66)
 ```python
 .pathwaydf_to_dict(
    df
