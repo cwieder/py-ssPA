@@ -1,6 +1,7 @@
 # sspa
 ![sspa_logo](sspa_logo.png)
 
+[![PyPI version](https://badge.fury.io/py/sspa.svg)](https://badge.fury.io/py/sspa)
 [![DOI](https://zenodo.org/badge/442446643.svg)](https://zenodo.org/badge/latestdoi/442446643)
 [![](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat)](https://readthedocs.org/projects/py-ssPA/badge/)
 [![Downloads](https://pepy.tech/badge/sspa)](https://pepy.tech/project/sspa)
