@@ -28,8 +28,8 @@ class sspa_ora:
         self.testtype = DA_testtype
         self.background_set = custom_background if custom_background is not None else mat.columns.to_list()
 
-        self.ttest_res = utils.t_tests(self.data.copy(deep=True), self.metadata, "fdr_bh", testtype=self.testtype)
-        self.DA_molecules = self.ttest_res[self.ttest_res["P-adjust"] <= self.threshold]["Entity"].tolist()
+        self.DA_test_res = utils.t_tests(self.data.copy(deep=True), self.metadata, "fdr_bh", testtype=self.testtype)
+        self.DA_molecules = self.DA_test_res[self.DA_test_res["P-adjust"] <= self.threshold]["Entity"].tolist()
         self.results = []
 
     def over_representation_analysis(self):
