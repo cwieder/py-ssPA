@@ -46,6 +46,11 @@ def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
     """
     metabolites = matrix.columns.tolist()
     matrix['Target'] = pd.factorize(classes)[0]
+
+    # Check user has only input two classes of samples 
+    if len(set(matrix['Target'].tolist())) > 2:
+        raise ValueError('More than two metadata classes detected. Only two metadata classes are supported in ORA.')
+
     disease = matrix.loc[matrix["Target"] == 0]
     disease.drop(['Target'], axis=1, inplace=True)
     ctrl = matrix.loc[matrix["Target"] != 0]

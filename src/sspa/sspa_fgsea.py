@@ -28,6 +28,10 @@ def sspa_fgsea(mat, metadata, pathway_df, min_entity=2):
 
     # Get rankings - SNR
     mat['Target'] = pd.factorize(metadata)[0]
+    # Check user has only input two classes of samples 
+    if len(set(mat['Target'].tolist())) > 2:
+        raise ValueError('More than two metadata classes detected. Only two metadata classes are supported in GSEA.')
+
     class_a = mat.loc[mat["Target"] == 0]
     class_a.drop(['Target'], axis=1, inplace=True)
     class_b = mat.loc[mat["Target"] != 0]

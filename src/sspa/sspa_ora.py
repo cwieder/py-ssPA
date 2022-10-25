@@ -17,16 +17,18 @@ class sspa_ora:
         metadata (pd.Series): series containing phenotype metadata e.g 'COVID', 'NON-COVID'
         pathways (pd.DataFrame): pathway dataframe containing compound identifiers
         DA_cutoff (float): pFDR cutoff for selecting differential metabolites e.g. 0.05 or 0.01
+        DA_testtype (str): Test type for selecing differential metabolites. Can either be 'ttest' (default) for the independent students T-test or 'mwu' for the Mann Whitney U test, both as implemented in SciPy. 
         custom_background (list): background list of identifiers, default is to use annotated compounds in input data (i.e. mat.columns)
     """
-    def __init__(self, mat, metadata, pathways, DA_cutoff, custom_background=None):
+    def __init__(self, mat, metadata, pathways, DA_cutoff, DA_testtype='ttest', custom_background=None):
         self.data = mat
         self.metadata = metadata
         self.pathways = pathways
         self.threshold = DA_cutoff
+        self.testtype = DA_testtype
         self.background_set = custom_background if custom_background is not None else mat.columns.to_list()
 
-        self.ttest_res = utils.t_tests(self.data.copy(deep=True), self.metadata, "fdr_bh")
+        self.ttest_res = utils.t_tests(self.data.copy(deep=True), self.metadata, "fdr_bh", testtype=self.testtype)
         self.DA_molecules = self.ttest_res[self.ttest_res["P-adjust"] <= self.threshold]["Entity"].tolist()
         self.results = []
 
