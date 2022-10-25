@@ -88,7 +88,7 @@ processed_data_mapped = sspa.map_identifiers(conversion_table, output_id_type="C
 ## Conventional pathway analysis
 ORA
 ```
-ora = sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, custom_background=None)
+ora = sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, DA_testtype='ttest', custom_background=None)
 
 # perform ORA 
 ora_res = ora.over_representation_analysis()
@@ -99,6 +99,9 @@ ora.ttest_res
 # obtain list of differential molecules input to ORA
 ora.DA_molecules
 ```
+
+!!! note "Statistical tests for selecing differential molecules"
+    In over-representation the list of molecules of interest, or 'differential genes/metabolites/proteins, etc' are often determined using a statistical test such as the Student's t-test. In the sspa_ora function we allow users to specify the type of test used for this purpose, either `DA_testtype='ttest'` to use an independent samples t-test (default), or `DA_testtype='mwu'` to use a Mann Whitney U test. 
 
 GSEA
 ```

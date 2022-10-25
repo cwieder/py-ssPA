@@ -83,7 +83,7 @@ processed_data_mapped = sspa.map_identifiers(conversion_table, output_id_type="C
 ## Conventional pathway analysis
 ORA
 ```
-ora = sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, custom_background=None)
+ora = sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, DA_testtype='ttest', custom_background=None)
 
 # perform ORA 
 ora_res = ora.over_representation_analysis()
