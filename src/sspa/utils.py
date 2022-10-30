@@ -51,11 +51,17 @@ def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
     if len(set(matrix['Target'].tolist())) > 2:
         raise ValueError('More than two metadata classes detected. Only two metadata classes are supported in ORA.')
 
-    disease = matrix.loc[matrix["Target"] == 0]
-    disease.drop(['Target'], axis=1, inplace=True)
-    ctrl = matrix.loc[matrix["Target"] != 0]
-    ctrl.drop(['Target'], axis=1, inplace=True)
+    disease = matrix[matrix["Target"] == 0]
+    disease = disease.drop(['Target'], axis=1)
+    ctrl = matrix[matrix["Target"] != 0]
+    ctrl = ctrl.drop(['Target'], axis=1)
     matrix = matrix.drop(['Target'], axis=1)
+
+    # disease = matrix.loc[matrix["Target"] == 0]
+    # disease.drop(['Target'], axis=1, inplace=True)
+    # ctrl = matrix.loc[matrix["Target"] != 0]
+    # ctrl.drop(['Target'], axis=1, inplace=True)
+    # matrix = matrix.drop(['Target'], axis=1)
     
     if testtype == "mwu":
         pvalues = stats.mannwhitneyu(disease, ctrl, axis=0)[1]
