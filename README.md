@@ -144,16 +144,18 @@ ssPA package
 Single-sample pathway analysis in metabolomics
 ```
 @article{Wieder2022,
-   author = {Cecilia Wieder and Rachel P J Lai and Timothy Ebbels},
-   doi = {10.1101/2022.04.11.487976},
-   journal = {bioRxiv},
-   month = {4},
-   pages = {2022.04.11.487976},
-   publisher = {Cold Spring Harbor Laboratory},
-   title = {Single sample pathway analysis in metabolomics : performance evaluation and application},
-   url = {https://www.biorxiv.org/content/10.1101/2022.04.11.487976v1 https://www.biorxiv.org/content/10.1101/2022.04.11.487976v1.abstract},
+   author = {Cecilia Wieder and Rachel P J Lai and Timothy M D Ebbels},
+   doi = {10.1186/s12859-022-05005-1},
+   issn = {1471-2105},
+   issue = {1},
+   journal = {BMC Bioinformatics},
+   pages = {481},
+   title = {Single sample pathway analysis in metabolomics: performance evaluation and application},
+   volume = {23},
+   url = {https://doi.org/10.1186/s12859-022-05005-1},
    year = {2022},
 }
+
 ```
 
 ## Contributing
