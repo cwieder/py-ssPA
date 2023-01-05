@@ -160,3 +160,9 @@ Single-sample pathway analysis in metabolomics
 
 ## Contributing
 Read our [contributor's guide](https://github.com/cwieder/py-ssPA/blob/main/CONTRIBUTING.md) to get started
+
+## News 
+
+### [v0.2.1] - 05/01/23
+- Removal of rpy2 dependency for improved compatibility across systems
+<!-- - Allow download of gene/protein pathways from KEGG and Reactome -->

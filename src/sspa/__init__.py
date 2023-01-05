@@ -8,8 +8,9 @@ from .sspa_zscore import sspa_zscore
 from .sspa_svd import sspa_svd
 from .utils import load_example_data, t_tests
 from .sspa_ora import sspa_ora
-from .sspa_fgsea import sspa_fgsea
-from .sspa_gsva import sspa_gsva
-from .sspa_ssGSEA import sspa_ssGSEA
+from .sspa_gsea import sspa_gsea
+# from .sspa_fgsea import sspa_fgsea
+# from .sspa_gsva import sspa_gsva
+# from .sspa_ssGSEA import sspa_ssGSEA
 from .download_pathways import download_KEGG, download_reactome, MetExplorePaths
 from .identifier_conversion import identifier_conversion, map_identifiers
