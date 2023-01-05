@@ -13,7 +13,7 @@ def sspa_ssGSEA(mat, pathway_df, min_entity=2):
 
     """
     Barbie et al ssGSEA method for single sample pathway analysis. 
-    This is an rpy2 wrapper script to run the R implementation of ssGSEA using the GSVA package.
+    Uses the ssgsea function of the gseapy package (https://github.com/zqfang/GSEApy) as a backend. 
 
     Args:
         mat (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
@@ -38,7 +38,10 @@ def sspa_ssGSEA(mat, pathway_df, min_entity=2):
                sample_norm_method='rank', # choose 'custom' will only use the raw value of `data`
                no_plot=True)
 
-    return ssgsea_res.res2d
+    ssgsea_scores = ssgsea_res.res2d.pivot(index='Term', columns='Name', values='NES').T
+    res_df = pd.DataFrame(ssgsea_scores, index=mat.index, columns=pathways.keys())
+    res_df = res_df.astype(float)
+    return res_df
 
     # with localconverter(ro.default_converter + pandas2ri.converter):
     #     r_mat = ro.conversion.py2rpy(mat.T)
