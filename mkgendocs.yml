@@ -39,9 +39,9 @@ pages:
       - sspa_ora
 
   - page: "reference/GSEA.md"
-    source: "src/sspa/sspa_fgsea.py"
+    source: "src/sspa/sspa_gsea.py"
     functions:
-      - sspa_fgsea
+      - sspa_gsea
 
   - page: "reference/SVD.md"
     source: "src/sspa/sspa_svd.py"
