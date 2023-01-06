@@ -15,6 +15,8 @@ jobs:
         with:
           python-version: 3.x
       - run: pip install mkdocs-material 
+      - run: pip install mkdocstrings-python
+      - run: pip install pymdown-extensions
       - name: Deploy docs
         working-directory: ./docs
         run: mkdocs gh-deploy --force
