@@ -3,7 +3,7 @@
 
 [![PyPI version](https://badge.fury.io/py/sspa.svg)](https://badge.fury.io/py/sspa)
 [![DOI](https://zenodo.org/badge/442446643.svg)](https://zenodo.org/badge/latestdoi/442446643)
-![ssPA docs](https://github.com/cwieder/py-sspa/actions/workflows/sspa-docs.yml/badge.svg)
+[![ssPA docs](https://github.com/cwieder/py-sspa/actions/workflows/sspa-docs.yml/badge.svg)](https://cwieder.github.io/py-ssPA/)
 [![Downloads](https://pepy.tech/badge/sspa)](https://pepy.tech/project/sspa)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
