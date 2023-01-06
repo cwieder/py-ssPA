@@ -17,6 +17,9 @@ jobs:
       - run: pip install mkdocs-material 
       - run: pip install mkdocstrings-python
       - run: pip install pymdown-extensions
+      - run: pip install mkgendocs
+      - name: generate docs
+        run: gendocs --config mkgendocs.yml
       - name: Deploy docs
         working-directory: ./docs
         run: mkdocs gh-deploy --force
