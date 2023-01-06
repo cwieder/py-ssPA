@@ -166,4 +166,8 @@ Read our [contributor's guide](https://github.com/cwieder/py-ssPA/blob/main/CONT
 ### [v0.2.1] - 05/01/23
 - Removal of rpy2 dependency for improved compatibility across systems
 - Use [GSEApy](https://github.com/zqfang/GSEApy) as backend for GSEA and ssGSEA 
+- Minor syntax changes
+   - `ora.ttest_res` is now `ora.DA_test_res` (as we can implement t-test or MWU tests)
+   - `sspa_fgsea()` is now `sspa_gsea()` and uses gseapy as the backend rather than R fgsea
+   - `sspa_gsva()` is temporarily deprecated due to the need for the rpy2 compatability - use the [GSVA R package](https://bioconductor.org/packages/release/bioc/html/GSVA.html)
 <!-- - Allow download of gene/protein pathways from KEGG and Reactome -->
