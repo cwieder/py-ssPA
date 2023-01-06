@@ -3,7 +3,7 @@
 
 [![PyPI version](https://badge.fury.io/py/sspa.svg)](https://badge.fury.io/py/sspa)
 [![DOI](https://zenodo.org/badge/442446643.svg)](https://zenodo.org/badge/latestdoi/442446643)
-[![](https://readthedocs.org/projects/pip/badge/?version=latest&style=flat)](https://readthedocs.org/projects/py-ssPA/badge/)
+![ssPA docs](https://github.com/cwieder/py-sspa/actions/workflows/sspa-docs.yml/badge.svg)
 [![Downloads](https://pepy.tech/badge/sspa)](https://pepy.tech/project/sspa)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
@@ -93,12 +93,12 @@ ora_res = ora.over_representation_analysis()
 ora.ttest_res
 
 # obtain list of differential molecules input to ORA
-ora.DA_molecules
+ora.DA_test_res
 ```
 
 GSEA
 ```
-sspa.sspa_fgsea(processed_data_mapped, covid_data['Group'], reactome_pathways)
+sspa.sspa_gsea(processed_data_mapped, covid_data['Group'], reactome_pathways)
 ```
 
 ## Single sample pathway analysis methods
@@ -115,8 +115,8 @@ zscore_res = sspa.sspa_zscore(processed_data_mapped, reactome_pathways)
 # SVD (PLAGE)
 svd_res = sspa.sspa_svd(processed_data_mapped, reactome_pathways)
 
-# GSVA
-gsva_res = sspa.sspa_gsva(processed_data_mapped, reactome_pathways)
+# ssGSEA
+ssgsea_res = sspa.sspa_ssGSEA(processed_data_mapped, reactome_pathways)
 ```
 
 

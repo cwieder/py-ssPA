@@ -97,7 +97,7 @@ ora_res = ora.over_representation_analysis()
 ora.ttest_res
 
 # obtain list of differential molecules input to ORA
-ora.DA_molecules
+ora.DA_test_res
 ```
 
 !!! note "Statistical tests for selecing differential molecules"
@@ -105,7 +105,7 @@ ora.DA_molecules
 
 GSEA
 ```
-sspa.sspa_fgsea(processed_data_mapped, covid_data['Group'], reactome_pathways)
+sspa.sspa_gsea(processed_data_mapped, covid_data['Group'], reactome_pathways)
 ```
 
 ## Single sample pathway analysis methods
@@ -122,6 +122,6 @@ zscore_res = sspa.sspa_zscore(processed_data_mapped, reactome_pathways)
 # SVD (PLAGE)
 svd_res = sspa.sspa_svd(processed_data_mapped, reactome_pathways)
 
-# GSVA
-gsva_res = sspa.sspa_gsva(processed_data_mapped, reactome_pathways)
+# ssGSEA
+ssgsea_res = sspa.sspa_ssGSEA(processed_data_mapped, reactome_pathways)
 ```
