@@ -4,24 +4,18 @@ from pandas.testing import assert_frame_equal
 from io import StringIO
 
 class TestUtils():
-    dummy_pathway_df_data = '''
-        ,Pathway_name,0,1,2,3,4\n
-        R-HSA-1059683,Interleukin-6 signaling,30616,456216,,,\n
-        R-HSA-109581,Apoptosis,61120,4705,456216,28494,36080\n
-        R-HSA-109582,Hemostasis,15366,91144,15377,15378,15379\n
-        R-HSA-109606,Intrinsic Pathway for Apoptosis,456216,28494,36080,15377,43474
-    '''
-    dummy_pathway_df = pd.read_csv(StringIO(dummy_pathway_df_data), index_col=0, dtype='object')
+    dummy_pathway_df_data = """,Pathway_name,0,1,2,3,4\nR-HSA-1059683,Interleukin-6 signaling,30616,456216,,,\nR-HSA-109581,Apoptosis,61120,4705,456216,28494,36080\nR-HSA-109582,Hemostasis,15366,91144,15377,15378,15379\nR-HSA-109606,Intrinsic Pathway for Apoptosis,456216,28494,36080,15377,43474"""
+    dummy_pathway_df = pd.read_csv(StringIO(dummy_pathway_df_data), index_col=0, dtype='object', sep=",")
     # dummy_metab = pd.read_csv('test_data/mini_metabolomics.csv', index_col=0)
     # dummy_classes = ['CTRL', 'CASE', 'CASE', 'CTRL', 'CTRL']
-
+    
     def test_pathwaydf_to_dict_base(self):
         expected = {'R-HSA-1059683': ['30616', '456216'],
     'R-HSA-109581': ['36080', '28494', '61120', '4705', '456216'],
     'R-HSA-109582': ['15366', '15377', '91144', '15379', '15378'],
     'R-HSA-109606': ['36080', '43474', '28494', '15377', '456216']}
-        
         actual = pathwaydf_to_dict(self.dummy_pathway_df)
+        print(actual)
         assert expected.keys() == actual.keys()
         assert [set(i) for i in expected.values()] == [set(i) for i in actual.values()]
 
