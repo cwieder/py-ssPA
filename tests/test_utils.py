@@ -5,10 +5,10 @@ from io import StringIO
 
 class TestUtils():
     dummy_pathway_df_data = '''
-        ,Pathway_name,0,1,2,3,4
-        R-HSA-1059683,Interleukin-6 signaling,30616,456216,,,
-        R-HSA-109581,Apoptosis,61120,4705,456216,28494,36080
-        R-HSA-109582,Hemostasis,15366,91144,15377,15378,15379
+        ,Pathway_name,0,1,2,3,4\n
+        R-HSA-1059683,Interleukin-6 signaling,30616,456216,,,\n
+        R-HSA-109581,Apoptosis,61120,4705,456216,28494,36080\n
+        R-HSA-109582,Hemostasis,15366,91144,15377,15378,15379\n
         R-HSA-109606,Intrinsic Pathway for Apoptosis,456216,28494,36080,15377,43474
     '''
     dummy_pathway_df = pd.read_csv(StringIO(dummy_pathway_df_data), index_col=0, dtype='object')
