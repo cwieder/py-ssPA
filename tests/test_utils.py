@@ -1,6 +1,7 @@
 from sspa.utils import pathwaydf_to_dict, t_tests, load_example_data
 import pandas as pd
 from pandas.testing import assert_frame_equal
+from io import StringIO
 
 class TestUtils():
     dummy_pathway_df_data = '''
@@ -10,7 +11,7 @@ class TestUtils():
         R-HSA-109582,Hemostasis,15366,91144,15377,15378,15379
         R-HSA-109606,Intrinsic Pathway for Apoptosis,456216,28494,36080,15377,43474
     '''
-    dummy_pathway_df = pd.read_csv(pd.compat.StringIO(dummy_pathway_df_data), index_col=0, dtype='object')
+    dummy_pathway_df = pd.read_csv(StringIO(dummy_pathway_df_data), index_col=0, dtype='object')
     # dummy_metab = pd.read_csv('test_data/mini_metabolomics.csv', index_col=0)
     # dummy_classes = ['CTRL', 'CASE', 'CASE', 'CTRL', 'CTRL']
 
