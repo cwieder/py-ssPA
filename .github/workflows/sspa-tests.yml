@@ -1,4 +1,4 @@
-name: Python package
+name: sspa-tests
 
 on: [push]
 
