@@ -28,9 +28,9 @@ setup(
         'numpy',
         'setuptools',
         'scipy',
-        'statsmodels>=0.13.1',
-        'sspa>=0.2.0',
-        'requests>=2.26.0',
-        'gseapy>=1.0.3',
+        'statsmodels',
+        'sspa',
+        'requests',
+        'gseapy',
     ],
 )
