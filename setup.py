@@ -21,5 +21,16 @@ setup(
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.10',
-    ]
+    ],
+    install_requires=[
+        'pandas',
+        'scikit-learn',
+        'numpy',
+        'setuptools',
+        'scipy',
+        'statsmodels>=0.13.1',
+        'sspa>=0.2.0',
+        'requests>=2.26.0',
+        'gseapy>=1.0.3',
+    ],
 )
