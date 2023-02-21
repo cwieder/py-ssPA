@@ -44,18 +44,19 @@ def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
     Returns:
         pd.DataFrame containing p-values and corrected p-values for each metabolite
     """
-    metabolites = matrix.columns.tolist()
-    matrix['Target'] = pd.factorize(classes)[0]
+    matrix_copy = matrix.copy(deep=True)
+    metabolites = matrix_copy.columns.tolist()
+    matrix_copy['Target'] = pd.factorize(classes)[0]
 
     # Check user has only input two classes of samples 
-    if len(set(matrix['Target'].tolist())) > 2:
+    if len(set(matrix_copy['Target'].tolist())) > 2:
         raise ValueError('More than two metadata classes detected. Only two metadata classes are supported in ORA.')
 
-    disease = matrix[matrix["Target"] == 0]
+    disease = matrix_copy[matrix_copy["Target"] == 0]
     disease = disease.drop(['Target'], axis=1)
-    ctrl = matrix[matrix["Target"] != 0]
+    ctrl = matrix_copy[matrix_copy["Target"] != 0]
     ctrl = ctrl.drop(['Target'], axis=1)
-    matrix = matrix.drop(['Target'], axis=1)
+    matrix_copy = matrix_copy.drop(['Target'], axis=1)
 
     # disease = matrix.loc[matrix["Target"] == 0]
     # disease.drop(['Target'], axis=1, inplace=True)
