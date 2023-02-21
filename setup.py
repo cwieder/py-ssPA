@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setup(
     name='sspa',
-    version='0.2.1',
+    version='0.2.2',
     packages=['sspa'],
     package_dir={'':'src'},
     url='https://github.com/cwieder/sspa',
