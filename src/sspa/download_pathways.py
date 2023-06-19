@@ -6,6 +6,7 @@ import re
 import pandas as pd
 import warnings
 import json
+from tqdm import tqdm
 
 def download_KEGG(organism, filepath=None):
     '''
@@ -25,11 +26,11 @@ def download_KEGG(organism, filepath=None):
     pathways = pathways.split("\n")
     pathways = filter(None, pathways)
     pathway_dict = dict()
-
+    
     for path in pathways:
         path = path.split("\t")
         name = path[1]
-        pathid = re.search(r"path:(.*)", path[0]).group(1)
+        pathid = re.search(r"(.*)", path[0]).group(1)
         pathway_dict[pathid] = name
 
     # get compounds for each pathway
@@ -39,10 +40,9 @@ def download_KEGG(organism, filepath=None):
     pathway_names = list(pathway_dict.values())
     pathway_compound_mapping = dict()
 
-    for i in pathway_ids:
+    for index,i in enumerate(tqdm(pathway_ids)):
         complist = []
-        current_url = base_url + "pathway:" + i
-
+        current_url = base_url + "pathway:" +i
         # parse the pathway description page
         page = requests.get(current_url)
         lines = page.text.split("\n")
