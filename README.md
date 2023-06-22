@@ -161,6 +161,10 @@ Single-sample pathway analysis in metabolomics
 ## Contributing
 Read our [contributor's guide](https://github.com/cwieder/py-ssPA/blob/main/CONTRIBUTING.md) to get started
 
+### Contributors
+We are grateful for our contributors who help develop and maintain py-ssPA:
+- Maëlick Brochut [@mbrochut](https://github.com/mbrochut)
+
 ## News 
 
 ### [v0.2.1] - 05/01/23
