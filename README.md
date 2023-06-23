@@ -167,6 +167,10 @@ We are grateful for our contributors who help develop and maintain py-ssPA:
 
 ## News 
 
+### [v0.2.3] - 23/06/23
+- @mbrochut Bug fix in KEGG pathway downloader 
+- @mbrochut Add tqdm progress bar for long KEGG downloads
+
 ### [v0.2.1] - 05/01/23
 - Removal of rpy2 dependency for improved compatibility across systems
 - Use [GSEApy](https://github.com/zqfang/GSEApy) as backend for GSEA and ssGSEA 
