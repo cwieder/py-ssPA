@@ -57,17 +57,11 @@ def t_tests(matrix, classes, multiple_correction_method, testtype="ttest"):
     ctrl = matrix_copy[matrix_copy["Target"] != 0]
     ctrl = ctrl.drop(['Target'], axis=1)
     matrix_copy = matrix_copy.drop(['Target'], axis=1)
-
-    # disease = matrix.loc[matrix["Target"] == 0]
-    # disease.drop(['Target'], axis=1, inplace=True)
-    # ctrl = matrix.loc[matrix["Target"] != 0]
-    # ctrl.drop(['Target'], axis=1, inplace=True)
-    # matrix = matrix.drop(['Target'], axis=1)
     
     if testtype == "mwu":
-        pvalues = stats.mannwhitneyu(disease, ctrl, axis=0)[1]
+        pvalues = stats.mannwhitneyu(disease, ctrl, nan_policy='omit', axis=0)[1]
     else:
-        pvalues = stats.ttest_ind(disease, ctrl)[1]
+        pvalues = stats.ttest_ind(disease, ctrl, nan_policy='omit')[1]
 
     padj = sm.stats.multipletests(pvalues, 0.05, method=multiple_correction_method)
     results = pd.DataFrame(zip(metabolites, pvalues, padj[1]),
