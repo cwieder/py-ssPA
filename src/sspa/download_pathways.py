@@ -74,46 +74,105 @@ def download_KEGG(organism, filepath=None):
 
     return df
 
-def download_reactome(organism, filepath=None):
+def download_reactome(organism, filepath=None, omics_type='metabolomics'):
     '''
     Function for Reactome pathway download
     Args:
         organism (str): Reactome organism name
         filepath (str): filepath (str): filepath to save pathway file to, default is None - save to variable
+        omics_type(str): type of omics pathways to download. Options are 'metabolomics', 'proteomics', or 'multiomics'
     Returns: 
         GMT-like pd.DataFrame containing Reactome pathways
     '''
     print("Beginning Reactome download...")
 
-     # get all pathways
-    url = 'https://reactome.org/download/current/ChEBI2Reactome_All_Levels.txt'
-    f = pd.read_csv(url, sep="\t", header=None)
-    
-    f.columns = ['CHEBI', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
-    f_filt = f[f.species == organism]
-    name_dict = dict(zip(f_filt['pathway_ID'], f_filt['pathway_name']))
-
-    groups = f_filt.groupby(['pathway_ID'])['CHEBI'].apply(list).to_dict()
-    groups = {k: list(set(v)) for k, v in groups.items()}
-
-    df = pd.DataFrame.from_dict(groups, orient='index', dtype="object")
-    pathways_df = df.dropna(axis=0, how='all', subset=df.columns.tolist()[1:])
-    pathways_df = df.dropna(axis=1, how='all')
-
-    pathways_df["Pathway_name"] = pathways_df.index.map(name_dict)
-    pathways_df.insert(0, 'Pathway_name', pathways_df.pop('Pathway_name'))
-
     # get release details
     release_data = requests.get('https://reactome.org/download/current/reactome_stable_ids.txt')
     version_no = release_data.text.split()[6]
 
-    if filepath:
-        fpath = filepath + "/Reactome_" + "_".join(organism.split())+ "_pathways_compounds_R" + str(version_no) + ".gmt"
-        pathways_df.to_csv(fpath, sep="\t", header=False)
-        print("Reactome DB file saved to " + fpath)
-    print("Complete!")
+    # get all pathways
+    if omics_type == 'metabolomics':
+        url = 'https://reactome.org/download/current/ChEBI2Reactome_All_Levels.txt'
+        f = pd.read_csv(url, sep="\t", header=None)
+        
+        f.columns = ['CHEBI', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
+        f_filt = f[f.species == organism]
+        name_dict = dict(zip(f_filt['pathway_ID'], f_filt['pathway_name']))
+        groups = f_filt.groupby(['pathway_ID'])['CHEBI'].apply(list).to_dict()
+        groups = {k: list(set(v)) for k, v in groups.items()}
+        df = pd.DataFrame.from_dict(groups, orient='index', dtype="object")
+        pathways_df = df.dropna(axis=0, how='all', subset=df.columns.tolist()[1:])
+        pathways_df = df.dropna(axis=1, how='all')
+        pathways_df["Pathway_name"] = pathways_df.index.map(name_dict)
+        pathways_df.insert(0, 'Pathway_name', pathways_df.pop('Pathway_name'))
 
-    return pathways_df
+        if filepath:
+            fpath = filepath + "/Reactome_" + "_".join(organism.split())+ "_pathways_ChEBI_R" + str(version_no) + ".gmt"
+            pathways_df.to_csv(fpath, sep="\t", header=False)
+            print("Reactome DB file saved to " + fpath)
+        
+        print("Complete!")
+        return pathways_df
+
+    if omics_type == 'proteomics':
+        url = 'https://reactome.org/download/current/UniProt2Reactome_All_Levels.txt'
+        f = pd.read_csv(url, sep="\t", header=None)
+        
+        f.columns = ['UniProt', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
+        f_filt = f[f.species == organism]
+        name_dict = dict(zip(f_filt['pathway_ID'], f_filt['pathway_name']))
+        groups = f_filt.groupby(['pathway_ID'])['UniProt'].apply(list).to_dict()
+        groups = {k: list(set(v)) for k, v in groups.items()}
+        df = pd.DataFrame.from_dict(groups, orient='index', dtype="object")
+        pathways_df = df.dropna(axis=0, how='all', subset=df.columns.tolist()[1:])
+        pathways_df = df.dropna(axis=1, how='all')
+        pathways_df["Pathway_name"] = pathways_df.index.map(name_dict)
+        pathways_df.insert(0, 'Pathway_name', pathways_df.pop('Pathway_name'))
+
+        if filepath:
+            fpath = filepath + "/Reactome_" + "_".join(organism.split())+ "_pathways_UniProt_R" + str(version_no) + ".gmt"
+            pathways_df.to_csv(fpath, sep="\t", header=False)
+            print("Reactome DB file saved to " + fpath)
+        
+        print("Complete!")
+        return pathways_df
+
+    if omics_type == 'multiomics':
+        url_prot = 'https://reactome.org/download/current/UniProt2Reactome_All_Levels.txt'
+        url_metab = 'https://reactome.org/download/current/ChEBI2Reactome_All_Levels.txt'
+        
+        pathway_dfs = []
+        for url in [url_prot, url_metab]:
+            f = pd.read_csv(url, sep="\t", header=None)
+            
+            f.columns = ['molecule_ID', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
+            f_filt = f[f.species == organism]
+            name_dict = dict(zip(f_filt['pathway_ID'], f_filt['pathway_name']))
+            groups = f_filt.groupby(['pathway_ID'])['molecule_ID'].apply(list).to_dict()
+            groups = {k: list(set(v)) for k, v in groups.items()}
+            df = pd.DataFrame.from_dict(groups, orient='index', dtype="object")
+            pathways_df = df.dropna(axis=0, how='all', subset=df.columns.tolist()[1:])
+            pathways_df = df.dropna(axis=1, how='all')
+            pathways_df["Pathway_name"] = pathways_df.index.map(name_dict)
+            pathways_df.insert(0, 'Pathway_name', pathways_df.pop('Pathway_name'))
+            pathways_df.set_index([pathways_df.index, pathways_df['Pathway_name']], inplace=True)
+            pathways_df.drop(['Pathway_name'], axis=1, inplace=True)
+            pathway_dfs.append(pathways_df)
+        
+        # merge pathways on index
+        reactome_mo = pathway_dfs[0].merge(pathway_dfs[1], how='outer', left_index=True, right_index=True)    
+        reactome_mo = reactome_mo.reset_index(level=[1])
+
+        if filepath:
+            fpath = filepath + "/Reactome_" + "_".join(organism.split())+ "_pathways_multiomics_R" + str(version_no) + ".gmt"
+            reactome_mo.to_csv(fpath, sep="\t", header=False)
+            print("Reactome DB file saved to " + fpath)
+
+        print("Complete!")
+        return reactome_mo
+    
+
+
 
 class MetExplorePaths:
     '''

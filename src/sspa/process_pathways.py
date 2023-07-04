@@ -2,7 +2,7 @@ import pandas as pd
 import pkg_resources
 import sspa.download_pathways 
 
-def process_reactome(organism, infile=None, download_latest=False, filepath=None):
+def process_reactome(organism, infile=None, download_latest=False, filepath=None, omics_type='metabolomics'):
     '''
     Function to load Reactome pathways 
     Args:
@@ -10,6 +10,7 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
         infile (str): default None, provide a Reactome pathway file to process into the GMT-style dataframe 
         download_latest (Bool): Downloads the latest version of Reactome metabolic pathways
         filepath (str): filepath to save pathway file to, default is None - save to variable
+        omics_type(str): If using download_latest, specify type of omics pathways to download. Options are 'metabolomics', 'proteomics', or 'multiomics'
     Returns: 
         GMT-like pd.DataFrame containing Reactome pathways
     '''
@@ -17,10 +18,12 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
     # Process CHEBI to reactome data
 
     if download_latest:
-        pathways_df = sspa.download_pathways.download_reactome(organism, filepath)
+        pathways_df = sspa.download_pathways.download_reactome(organism, filepath, omics_type)
         return pathways_df
-
+    
     else:
+        if omics_type != 'metabolomics':
+            raise ValueError('Proteomics/multi-omics pathways only accessible when download_latest=True')
         if infile == None or infile == "R78":
             stream = pkg_resources.resource_stream(__name__, 'pathway_databases/ChEBI2Reactome_All_Levels_R78.txt')
             f = pd.read_csv(stream, sep="\t", header=None, encoding='latin-1')
