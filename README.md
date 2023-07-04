@@ -165,7 +165,13 @@ Read our [contributor's guide](https://github.com/cwieder/py-ssPA/blob/main/CONT
 We are grateful for our contributors who help develop and maintain py-ssPA:
 - Maëlick Brochut [@mbrochut](https://github.com/mbrochut)
 
-## News 
+## News and updates
+
+### [v0.2.4] - 04/07/23
+Enable the download of multi-omics (ChEBI and UniProt) Reactome pathways for multi-omics integration purposes. Enable `omics_type='multiomics'` to download:
+```
+reactome_mouse_latest_mo = sspa.process_reactome("Mus musculus", download_latest=True, filepath=".", omics_type='multiomics')
+```
 
 ### [v0.2.3] - 23/06/23
 - @mbrochut Bug fix in KEGG pathway downloader 
