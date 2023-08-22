@@ -16,13 +16,14 @@ def identifier_conversion(input_type, compound_list):
     resps = []
     for i in range(0, len(compound_list), 100):
         cpds = compound_list[i:i+100]
-        input_cpds = {"queryList": cpds, "inputType": input_type}
+        input_cpds = {"queryList": ';'.join(cpds), "inputType": input_type}
         headers = {
             # 'Content-Type': "application/json",
             'cache-control': "no-cache",
             }
 
         response = requests.request("POST", url, json=input_cpds, headers=headers)
+        
         resp_dict = response.json()
         resps.append(resp_dict)
 
