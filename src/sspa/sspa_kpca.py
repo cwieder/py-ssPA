@@ -5,7 +5,7 @@ from sklearn.utils.validation import check_is_fitted
 from sklearn.utils.estimator_checks import check_estimator
 from sklearn.base import BaseEstimator
 
-class sspa_kpca(BaseEstimator):
+class sspaKPCA(BaseEstimator):
     """
     Kernel PCA method for single sample pathway analysis
 

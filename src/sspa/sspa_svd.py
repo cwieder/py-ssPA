@@ -6,7 +6,7 @@ from sklearn.utils.validation import check_is_fitted
 from sklearn.base import BaseEstimator
 
 
-class sspa_svd(BaseEstimator):
+class sspaSVD(BaseEstimator):
     """
     Tomfohr et al 2005 PLAGE (SVD) method for single sample pathway analysis
 
