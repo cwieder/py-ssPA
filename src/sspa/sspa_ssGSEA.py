@@ -1,24 +1,22 @@
 import pandas as pd
 import sspa.utils as utils
 import gseapy
-# import rpy2.robjects as ro
-# from rpy2.robjects.packages import importr
-# from rpy2.robjects import pandas2ri
-# from rpy2.robjects.conversion import localconverter
+from sklearn.utils.validation import check_is_fitted
+from sklearn.base import BaseEstimator
 
-# # for rpy2
-# base = importr('base')
-
-def sspa_ssGSEA(mat, pathway_df, min_entity=2):
-
+class sspa_ssGSEA(BaseEstimator):
     """
     Barbie et al ssGSEA method for single sample pathway analysis. 
+
     Uses the ssgsea function of the gseapy package (https://github.com/zqfang/GSEApy) as a backend. 
 
+    All credit for ssGSEA code goes to developers of the GSEAPY python package (credit: 
+    Zhuoqing Fang, Xinyuan Liu, Gary Peltz, GSEApy: 
+    a comprehensive package for performing gene set enrichment analysis in Python,
+    Bioinformatics, 2022;, btac757, https://doi.org/10.1093/bioinformatics/btac757)
+    
     Args:
-        mat (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
-        Do not include metadata columns
-        pathways (pd.DataFrame): Dictionary of pathway identifiers (keys) and corresponding list of pathway entities (values).
+        pathway_df (pd.DataFrame): pandas DataFrame of pathway identifiers (keys) and corresponding list of pathway entities (values).
         Entity identifiers must match those in the matrix columns
         min_entity (int): minimum number of metabolites mapping to pathways for ssPA to be performed
 
@@ -27,32 +25,62 @@ def sspa_ssGSEA(mat, pathway_df, min_entity=2):
         pandas DataFrame of pathway scores derived using the ssGSEA method. Columns represent pathways and rows represent samples.
     """
 
-    pathways = utils.pathwaydf_to_dict(pathway_df)
-    compounds_present = mat.columns.tolist()
-    pathways = {k: v for k, v in pathways.items() if len([i for i in compounds_present if i in v]) >= min_entity}
+    def __init__(self, pathway_df, min_entity=2):
+        self.pathway_df = pathway_df
+        self.min_entity = min_entity
+        self.pathways = utils.pathwaydf_to_dict(pathway_df)
+        self.pathways_filt = {}
+        self.fitted_models = []
+        self.pathway_ids = []
 
-    ssgsea_res = gseapy.ssgsea(data=mat.T,
-               gene_sets=pathways,
-               min_size=min_entity,
-               outdir=None,
-               sample_norm_method='rank', # choose 'custom' will only use the raw value of `data`
-               no_plot=True)
+    def fit(self, X, y=None):
+        """
+        Fit the model with X.
+        
+        Args:
+            X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+            Do not include metadata columns
+            Returns: 
+            self : object
+        """
+        self.X_ = X
+        self.y_ = y
 
-    ssgsea_scores = ssgsea_res.res2d.pivot(index='Term', columns='Name', values='NES').T
-    res_df = pd.DataFrame(ssgsea_scores, index=mat.index, columns=pathways.keys())
-    res_df = res_df.astype(float)
-    return res_df
+        self.is_fitted_ = True
+        return self
+    
+    def transform(self, X, y=None):
+        """
+        Transform X.
 
-    # with localconverter(ro.default_converter + pandas2ri.converter):
-    #     r_mat = ro.conversion.py2rpy(mat.T)
-    # r_mat = base.as_matrix(r_mat)  # abundance matrix
-    # row_vec = base.as_character(mat.columns.tolist())
-    # r_mat.rownames = row_vec
-    # r_list = ro.ListVector(pathways)  # pathways
-    # gsva_r = importr('GSVA')
-    # ssgsea_res = gsva_r.gsva(r_mat, r_list, method='ssgsea')
-    # with localconverter(ro.default_converter + pandas2ri.converter):
-    #     ssgsea_df = ro.conversion.rpy2py(ssgsea_res)
-    # ssgsea_res_df = pd.DataFrame(ssgsea_df.T, columns=pathways.keys(), index=mat.index.tolist())
+        Args:
+            X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+            Do not include metadata columns
+            Returns: 
+            pandas DataFrame of pathway scores derived using the ssGSEA method. Columns represent pathways and rows represent samples.
+        """
+        check_is_fitted(self, 'is_fitted_')
 
-    # return ssgsea_res_df
+        ssgsea_res = gseapy.ssgsea(data=X.T,
+                gene_sets=self.pathways,
+                min_size=self.min_entity,
+                outdir=None,
+                sample_norm_method='rank', # choose 'custom' will only use the raw value of `data`
+                no_plot=True)
+        ssgsea_scores = ssgsea_res.res2d.pivot(index='Term', columns='Name', values='NES').T
+        res_df = pd.DataFrame(ssgsea_scores, index=X.index, columns=self.pathways.keys())
+        res_df = res_df.astype(float)
+        return res_df
+    
+    def fit_transform(self, X, y=None):
+        """
+        Fit the model with X and transform X.
+
+        Args:
+            X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+            Do not include metadata columns
+            Returns: 
+            pandas DataFrame of pathway scores derived using the ssGSEA method. Columns represent pathways and rows represent samples.
+        """
+        self.fit(X)
+        return self.transform(X)
