@@ -1,41 +1,110 @@
 import pandas as pd
 import numpy as np
 import sspa.utils as utils
+from sklearn.decomposition import PCA
+from sklearn.utils.validation import check_is_fitted
+from sklearn.base import BaseEstimator
 
-def sspa_svd(mat, pathway_df, min_entity=2):
 
+class sspa_svd(BaseEstimator):
     """
-    Tomfohr et al 2004 SVD/PLAGE method for single sample pathway analysis
+    Tomfohr et al 2005 PLAGE (SVD) method for single sample pathway analysis
 
     Args:
-        mat (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
-        Do not include metadata columns
-        pathways (pd.DataFrame): Dictionary of pathway identifiers (keys) and corresponding list of pathway entities (values).
+        pathway_df (pd.DataFrame): pandas DataFrame of pathway identifiers (keys) and corresponding list of pathway entities (values).
         Entity identifiers must match those in the matrix columns
         min_entity (int): minimum number of metabolites mapping to pathways for ssPA to be performed
 
-    Returns:
-        pandas DataFrame of pathway scores derived using the PLAGE method. Columns represent pathways and rows represent samples.
     """
+    def __init__(self, pathway_df, min_entity=2, random_state=0):
+        self.pathway_df = pathway_df
+        self.min_entity = min_entity
+        self.pathways = utils.pathwaydf_to_dict(pathway_df)
+        self.pathways_filt = {}
+        self.fitted_models = []
+        self.pathway_ids = []
+        self.random_state = random_state
+        self.molecular_importance = {}
 
-    pathways = utils.pathwaydf_to_dict(pathway_df)
+    def fit(self, X, y=None):
+        """
+        Fit the model with X.
+        
+        Args:
+            X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+            Do not include metadata columns
+            Returns: 
+            self : object
+        """
 
-    pathway_activities = []
+        self.X_ = X
+        self.y_ = y
 
-    # Create pathway matrices
-    pathway_ids = []
-    for pathway, compounds in pathways.items():
-        single_pathway_matrix = mat.drop(mat.columns.difference(compounds), axis=1)
-        if single_pathway_matrix.shape[1] >= min_entity:
-            pathway_ids.append(pathway)
-            pathway_mat = single_pathway_matrix.T.values
+        for pathway, compounds in self.pathways.items():
+            single_pathway_matrix = X.drop(X.columns.difference(compounds), axis=1)
+            if single_pathway_matrix.shape[1] >= self.min_entity:
+                self.pathway_ids.append(pathway)
+                pca = PCA(n_components=1, random_state=self.random_state)
+                self.fitted_models.append(pca.fit(single_pathway_matrix.to_numpy()))
 
-            # s = singular values
-            # u = left singular vector
-            # v = right singular vector
-            u, s, vh = np.linalg.svd(pathway_mat)
+                # use loadings for PC1 molecular importances within the pathway
+                loadings = pca.components_[0]
+                self.molecular_importance[pathway] = pd.DataFrame(loadings, index=single_pathway_matrix.columns, columns=['PC1_Loadings'])
 
-            pathway_activities.append(vh[0])
+        self.pathways_filt = {k: v for k, v in self.pathways.items() if k in self.pathway_ids}
+        self.is_fitted_ = True
+        return self
+    
+    def transform(self, X, y=None):
+            
+        """
+        Transform X.
 
-    pathway_activities_df = pd.DataFrame(pathway_activities, columns=mat.index, index=pathway_ids).T
-    return pathway_activities_df
+        Args:
+            X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+            Do not include metadata columns
+            Returns: 
+            self : object
+        """
+    
+            # Check if fit has been called
+        check_is_fitted(self, 'is_fitted_')
+
+        # For each fitted model, transform the data
+        scores = []
+        for n, compounds in enumerate(self.pathways_filt.values()):
+            single_pathway_matrix = X.drop(X.columns.difference(compounds), axis=1)
+            new_data = self.fitted_models[n].transform(single_pathway_matrix.to_numpy())
+            scores.append(new_data[:, 0])
+        scores_df = pd.DataFrame(scores, columns=X.index, index=self.pathway_ids).T
+
+        return scores_df
+    
+    def fit_transform(self, X, y=None):
+
+        """
+        Fit the model with X and transform X.
+
+        Args:
+            X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+            Do not include metadata columns
+            Returns: 
+            self : object
+        """
+        self.X_ = X
+        self.y_ = y
+
+        scores = []
+        for pathway, compounds in self.pathways.items():
+            single_pathway_matrix = X.drop(X.columns.difference(compounds), axis=1)
+            if single_pathway_matrix.shape[1] >= self.min_entity:
+                self.pathway_ids.append(pathway)
+                pca = PCA(n_components=1, random_state=self.random_state)
+                scores.append(pca.fit_transform(single_pathway_matrix)[:, 0])
+
+                # use loadings for PC1 molecular importances within the pathway
+                loadings = pca.components_[0]
+                self.molecular_importance[pathway] = pd.DataFrame(loadings, index=single_pathway_matrix.columns, columns=['PC1_Loadings'])
+
+        scores_df = pd.DataFrame(scores, columns=X.index, index=self.pathway_ids).T
+        return scores_df
