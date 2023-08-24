@@ -5,7 +5,7 @@ import sspa.utils as utils
 from sklearn.utils.validation import check_is_fitted
 from sklearn.base import BaseEstimator
 
-class spaSsClustPA(BaseEstimator):
+class sspa_ssClustPA(BaseEstimator):
     """
     K-means based clustering method for single sample pathway analysis
 
@@ -82,6 +82,13 @@ class spaSsClustPA(BaseEstimator):
     def fit_transform(self, X, y=None):
         """
         Fit the model with X and transform X.
+        """
+        self.fit(X)
+        return self.transform(X)
+    
+    def fit_transform_(self, X, y=None):
+        """
+        Fit the model with X and transform X.
 
         Args:
             X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
@@ -107,5 +114,6 @@ class spaSsClustPA(BaseEstimator):
                 proj_data = unit_vec.dot(single_pathway_matrix.T)
                 scores.append(proj_data)
         scores_df = pd.DataFrame(scores, columns=X.index, index=self.pathway_ids).T
+        self.is_fitted_ = True
         return scores_df
 

@@ -6,7 +6,7 @@ from sklearn.utils.validation import check_is_fitted
 from sklearn.base import BaseEstimator
 
 
-class sspaSVD(BaseEstimator):
+class sspa_SVD(BaseEstimator):
     """
     Tomfohr et al 2005 PLAGE (SVD) method for single sample pathway analysis
 
@@ -81,6 +81,20 @@ class sspaSVD(BaseEstimator):
         return scores_df
     
     def fit_transform(self, X, y=None):
+            
+            """
+            Fit the model with X and transform X.
+    
+            Args:
+                X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+                Do not include metadata columns
+                Returns: 
+                self : object
+            """
+            self.fit(X)
+            return self.transform(X)
+    
+    def fit_transform_(self, X, y=None):
 
         """
         Fit the model with X and transform X.
@@ -107,4 +121,5 @@ class sspaSVD(BaseEstimator):
                 self.molecular_importance[pathway] = pd.DataFrame(loadings, index=single_pathway_matrix.columns, columns=['PC1_Loadings'])
 
         scores_df = pd.DataFrame(scores, columns=X.index, index=self.pathway_ids).T
+        self.is_fitted_ = True
         return scores_df

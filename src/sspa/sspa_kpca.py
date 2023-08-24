@@ -5,7 +5,7 @@ from sklearn.utils.validation import check_is_fitted
 from sklearn.utils.estimator_checks import check_estimator
 from sklearn.base import BaseEstimator
 
-class sspaKPCA(BaseEstimator):
+class sspa_KPCA(BaseEstimator):
     """
     Kernel PCA method for single sample pathway analysis
 
@@ -73,8 +73,24 @@ class sspaKPCA(BaseEstimator):
         scores_df = pd.DataFrame(scores, columns=X.index, index=self.pathway_ids).T
 
         return scores_df
-
+    
     def fit_transform(self, X, y=None):
+        """
+        Fit the model with X and transform X.
+
+        Args:
+            X (pd.DataFrame): pandas DataFrame omics data matrix consisting of m rows (samples) and n columns (entities).
+            Do not include metadata columns
+            Returns: 
+            pandas DataFrame of pathway scores derived using the kPCA method. Columns represent pathways and rows represent samples.
+        """
+        self.X_ = X
+        self.y_ = y
+
+        self.fit(X)
+        return self.transform(X)
+
+    def fit_transform_(self, X, y=None):
         """
         Fit the model with X and transform X.
 
@@ -95,5 +111,6 @@ class sspaKPCA(BaseEstimator):
                 scores.append(kpca.fit_transform(single_pathway_matrix)[:, 0])
 
         scores_df = pd.DataFrame(scores, columns=X.index, index=self.pathway_ids).T
+        self.is_fitted_ = True
         return scores_df
     
