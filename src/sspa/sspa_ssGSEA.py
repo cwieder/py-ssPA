@@ -68,7 +68,7 @@ class sspa_ssGSEA(BaseEstimator):
                 sample_norm_method='rank', # choose 'custom' will only use the raw value of `data`
                 no_plot=True)
         ssgsea_scores = ssgsea_res.res2d.pivot(index='Term', columns='Name', values='NES').T
-        res_df = pd.DataFrame(ssgsea_scores, index=X.index, columns=self.pathways.keys())
+        res_df = pd.DataFrame(ssgsea_scores, index=X.index)
         res_df = res_df.astype(float)
         return res_df
     
