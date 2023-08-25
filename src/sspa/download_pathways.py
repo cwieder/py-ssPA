@@ -80,7 +80,8 @@ def download_reactome(organism, filepath=None, omics_type='metabolomics'):
     Args:
         organism (str): Reactome organism name
         filepath (str): filepath (str): filepath to save pathway file to, default is None - save to variable
-        omics_type(str): type of omics pathways to download. Options are 'metabolomics', 'proteomics', or 'multiomics'
+        omics_type(str): type of omics pathways to download. 
+        Options are 'metabolomics' (ChEBI identifiers), 'proteomics' (UniProt identifiers), or 'multiomics' (ChEBI and UniProt identifiers)
     Returns: 
         GMT-like pd.DataFrame containing Reactome pathways
     '''
