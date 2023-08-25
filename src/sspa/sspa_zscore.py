@@ -6,7 +6,7 @@ import sspa.utils as utils
 from sklearn.utils.validation import check_is_fitted
 from sklearn.base import BaseEstimator
 
-class sspaZscore(BaseEstimator):
+class sspa_zscore(BaseEstimator):
     """
     Lee at al 2008 z-score method for single sample pathway analysis
     Args:

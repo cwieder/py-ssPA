@@ -82,7 +82,7 @@ processed_data_mapped = sspa.map_identifiers(conversion_table, output_id_type="C
 ```
 
 ## Conventional pathway analysis
-ORA
+Over-representation analysis (ORA)
 ```
 ora = sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, DA_testtype='ttest', custom_background=None)
 
@@ -96,27 +96,29 @@ ora.ttest_res
 ora.DA_test_res
 ```
 
-GSEA
+Gene Set Enrichment Analysis (GSEA), applicable to any type of omics data
+
 ```
 sspa.sspa_gsea(processed_data_mapped, covid_data['Group'], reactome_pathways)
 ```
 
 ## Single sample pathway analysis methods
+All ssPA methods now have a `fit()`, `transform()` and `fit_transform()` method for compatibility with SciKitLearn. This allows integration of ssPA transformation with various machine learning functions in SKLearn such as `Pipeline` and `GridSearchCV`. Specifically for `sspa.sspa_ssClustPA`, `sspa.sspa_SVD`, and `sspa.sspa_KPCA` methods the model can be fit on the training data and the test data is transformed using the fitted model.
 ```
 # ssclustPA
-ssclustpa_res = sspa.sspa_ssClustPA(processed_data_mapped, reactome_pathways)
+ssclustpa_res = sspa.sspa_ssClustPA(reactome_pathways, min_entity=2).fit_transform(processed_data_mapped)
 
-# kPCA
-kpca_scores = sspa.sspa_kpca(processed_data_mapped, reactome_pathways)
+# kPCA 
+kpca_scores = sspa.sspa_kpca(reactome_pathways, min_entity=2).fit_transform(processed_data_mapped)
 
-# z-score
-zscore_res = sspa.sspa_zscore(processed_data_mapped, reactome_pathways)
+# z-score (Lee et al. 2008)
+zscore_res = sspa.sspa_zscore(reactome_pathways, min_entity=2).fit_transform(processed_data_mapped)
 
-# SVD (PLAGE)
-svd_res = sspa.sspa_svd(processed_data_mapped, reactome_pathways)
+# SVD (PLAGE, Tomfohr et al. 2005)
+svd_res = sspa.sspa_svd(reactome_pathways, min_entity=2).fit_transform(processed_data_mapped)
 
-# ssGSEA
-ssgsea_res = sspa.sspa_ssGSEA(processed_data_mapped, reactome_pathways)
+# ssGSEA (Barbie et al. 2009)
+ssgsea_res = sspa.sspa_ssGSEA(reactome_pathways, min_entity=2).fit_transform(processed_data_mapped)
 ```
 
 
@@ -166,6 +168,12 @@ We are grateful for our contributors who help develop and maintain py-ssPA:
 - Maëlick Brochut [@mbrochut](https://github.com/mbrochut)
 
 ## News and updates
+<details>
+<summary>Read more</summary>
+
+### [v1.0.0] - 25/08/23
+- Add compatability with SciKitLearn by implementing `fit()`, `transform()` and `fit_transform()` methods for all ssPA methods. This allows integration of ssPA transformation with various machine learning functions in SKLearn such as `Pipeline` and `GridSearchCV`. Specifically for `sspa.sspa_ssClustPA`, `sspa.sspa_SVD`, and `sspa.sspa_KPCA` methods the model can be fit on the training data and the test data is transformed using the fitted model. 
+- Fixed ID conversion bug in `sspa.map_identifiers()` due to MetaboAnalyst API URL change
 
 ### [v0.2.4] - 04/07/23
 Enable the download of multi-omics (ChEBI and UniProt) Reactome pathways for multi-omics integration purposes. Enable `omics_type='multiomics'` to download:
@@ -184,4 +192,6 @@ reactome_mouse_latest_mo = sspa.process_reactome("Mus musculus", download_latest
    - `ora.ttest_res` is now `ora.DA_test_res` (as we can implement t-test or MWU tests)
    - `sspa_fgsea()` is now `sspa_gsea()` and uses gseapy as the backend rather than R fgsea
    - `sspa_gsva()` is temporarily deprecated due to the need for the rpy2 compatability - use the [GSVA R package](https://bioconductor.org/packages/release/bioc/html/GSVA.html)
+
+</details>
 <!-- - Allow download of gene/protein pathways from KEGG and Reactome -->
