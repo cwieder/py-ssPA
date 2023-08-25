@@ -22,7 +22,7 @@ Although this package is designed to provide a user-friendly interface for metab
 ## Documentation and tutorials
 Full walkthrough notebook available on Google Colab:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ehkbfThZ_6V-Lx-ya3Xe6DKAC77ZFL2I?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PdJueJkpdkpplE2ieNoO8CKcEmtXF1-x?usp=sharing)
 
 Documentation is available on our [Read the Docs page](https://cwieder.github.io/py-ssPA/)
 
