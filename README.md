@@ -31,24 +31,24 @@ Documentation is available on our [Read the Docs page](https://cwieder.github.io
 pip install sspa
 ```
 Load Reactome pathways
-```
+```python
 reactome_pathways  = sspa.process_reactome(organism="Homo sapiens")
 ```
 
 Load some example metabolomics data in the form of a pandas DataFrame:
 
-```
+```python
 covid_data_processed = sspa.load_example_data(omicstype="metabolomics", processed=True)
 ```
 
 Generate pathway scores using kPCA method
 
-```
-kpca_scores = sspa.sspa_kpca(covid_data_processed, reactome_pathways)
+```python
+kpca_scores = sspa.sspa_kpca(reactome_pathways, min_entity=2).fit_transform(covid_data_processed.iloc[:, :-2])
 ```
 
 ## Loading pathways 
-```
+```python
 # Pre-loaded pathways
 # Reactome v78
 reactome_pathways  = sspa.process_reactome(organism="Homo sapiens")
@@ -58,12 +58,12 @@ kegg_human_pathways  = sspa.process_kegg(organism="hsa")
 ```
 
 Load a custom GMT file (extension .gmt or .csv)
-```
+```python
 custom_pathways = sspa.process_gmt("wikipathways-20220310-gmt-Homo_sapiens.gmt")
 ```
 
 Download latest version of pathways
-```
+```python
 # download KEGG latest
 kegg_mouse_latest = sspa.process_kegg("mmu", download_latest=True, filepath=".")
 
@@ -72,7 +72,7 @@ reactome_mouse_latest = sspa.process_reactome("Mus musculus", download_latest=Tr
 ```
 
 ## Identifier harmonization 
-```
+```python
 # download the conversion table
 compound_names = processed_data.columns.tolist()
 conversion_table = sspa.identifier_conversion(input_type="name", compound_list=compound_names)
@@ -83,7 +83,7 @@ processed_data_mapped = sspa.map_identifiers(conversion_table, output_id_type="C
 
 ## Conventional pathway analysis
 Over-representation analysis (ORA)
-```
+```python
 ora = sspa.sspa_ora(processed_data_mapped, covid_data["Group"], reactome_pathways, 0.05, DA_testtype='ttest', custom_background=None)
 
 # perform ORA 
@@ -98,13 +98,14 @@ ora.DA_test_res
 
 Gene Set Enrichment Analysis (GSEA), applicable to any type of omics data
 
-```
+```python
 sspa.sspa_gsea(processed_data_mapped, covid_data['Group'], reactome_pathways)
 ```
 
 ## Single sample pathway analysis methods
 All ssPA methods now have a `fit()`, `transform()` and `fit_transform()` method for compatibility with SciKitLearn. This allows integration of ssPA transformation with various machine learning functions in SKLearn such as `Pipeline` and `GridSearchCV`. Specifically for `sspa.sspa_ssClustPA`, `sspa.sspa_SVD`, and `sspa.sspa_KPCA` methods the model can be fit on the training data and the test data is transformed using the fitted model.
-```
+
+```python
 # ssclustPA
 ssclustpa_res = sspa.sspa_ssClustPA(reactome_pathways, min_entity=2).fit_transform(processed_data_mapped)
 
