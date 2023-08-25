@@ -45,30 +45,30 @@ pages:
 
   - page: "reference/SVD.md"
     source: "src/sspa/sspa_svd.py"
-    functions:
-      - sspa_svd
+    classes:
+      - sspa_SVD
 
   - page: "reference/kPCA.md"
     source: "src/sspa/sspa_kpca.py"
-    functions:
-      - sspa_kpca
+    classes:
+      - sspa_KPCA
 
   - page: "reference/ssClustPA.md"
     source: "src/sspa/sspa_cluster.py"
-    functions:
+    classes:
       - sspa_ssClustPA
 
-  - page: "reference/GSVA.md"
-    source: "src/sspa/sspa_gsva.py"
-    functions:
-      - sspa_gsva
+  # - page: "reference/GSVA.md"
+  #   source: "src/sspa/sspa_gsva.py"
+  #   functions:
+  #     - sspa_gsva
 
   - page: "reference/ssGSEA.md"
     source: "src/sspa/sspa_ssGSEA.py"
-    functions:
+    classes:
       - sspa_ssGSEA
 
   - page: "reference/zscore.md"
     source: "src/sspa/sspa_zscore.py"
-    functions:
+    classes:
       - sspa_zscore
