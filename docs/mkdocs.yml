@@ -46,7 +46,7 @@ nav:
   - Home: index.md
   - Tutorials: 
     - Getting started: tutorials.md
-    - ssPA and SKLearn: gendocs_docs/reference/sklearn_sspa.md
+    - ssPA and SKLearn: sklearn_sspa.md
   - Reference:
     - gendocs_docs/reference/identifier_conversion.md
     - gendocs_docs/reference/download_pathways.md

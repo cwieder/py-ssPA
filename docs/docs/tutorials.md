@@ -1,9 +1,8 @@
 
 Please see our interactive walkthrough tutorial for a detailed overview on the package functionalities:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1ehkbfThZ_6V-Lx-ya3Xe6DKAC77ZFL2I?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PdJueJkpdkpplE2ieNoO8CKcEmtXF1-x?usp=sharing)
 
-A local version of this tutorial is available to download from [GitHub](https://github.com/cwieder/py-ssPA/blob/main/sspa_walkthrough_local.ipynb).
 
 # Quickstart quide
 
