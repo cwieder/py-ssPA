@@ -63,7 +63,7 @@ plt.ylabel('True')
 plt.title('Confusion matrix')
 plt.show()
 ```
-![confusion matrix](../../images/cm.png)
+![confusion matrix](images/cm.png)
 
 We can also interpret the model in terms of pathways by looking at feature importance. In this case we will look at the regression coefficients of the logistic regression model.
     
@@ -82,7 +82,7 @@ sns.barplot(data=coef_filt, x="Coefficient", y="Pathway")
 plt.tight_layout()
 plt.show()
 ```
-![confusion matrix](../../images/regression_coefs.png)
+![confusion matrix](images/regression_coefs.png)
 
 ### Using ssPA functions as part of SKLearn pipelines
 We may want to apply an ssPA transformation as part of a pre-processing pipeline to prepare test-train splits. We can integrate ssPA functions into sklearn pipelines like so:
