@@ -71,8 +71,8 @@ imputed_mat = data_filt.fillna(data_filt.median())
 # Log transform the data
 log2_mat = np.log2(imputed_mat)
 
-# Standardise the data
-processed_data = pd.DataFrame(StandardScaler().fit_transform(log2_mat), columns=imputed_mat.columns, index=imputed_mat.index)
+# Standardise the data (metabolite values) using z-score (mean=0, std=1) by subtracting the mean and dividing by the standard deviation
+processed_data = (log2_mat - log2_mat.mean(axis=0)) / log2_mat.std(axis=0)
 ```
 
 ## Loading pathways 
