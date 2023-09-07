@@ -20,11 +20,13 @@ sspa provides a Python interface for metabolomics pathway analysis. In addition 
 Although this package is designed to provide a user-friendly interface for metabolomics pathway analysis, the methods are also applicable to other datatypes such as normalised RNA-seq data. 
 
 ## Documentation and tutorials
-Full walkthrough notebook available on Google Colab:
+This README provides a quickstart guide to the package and its functions. For new users we **highly recommend following our full walkthrough notebook tutorial** available on Google Colab which provides a step-by-step guide to using the package.
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PdJueJkpdkpplE2ieNoO8CKcEmtXF1-x?usp=sharing)
 
-Documentation is available on our [Read the Docs page](https://cwieder.github.io/py-ssPA/)
+Click the link above and save a copy of the Colab notebook to your Google Drive. Alternatively, you can download the notebook from the Colab tutorial as an '.ipynb' file and run it locally using Jupyter Notebook or Jupyter Lab.
+
+Documentation is available on our [Read the Docs page](https://cwieder.github.io/py-ssPA/). This includes a function API reference. 
 
 ## Quickstart
 ```
@@ -45,6 +47,32 @@ Generate pathway scores using kPCA method
 
 ```python
 kpca_scores = sspa.sspa_kpca(reactome_pathways, min_entity=2).fit_transform(covid_data_processed.iloc[:, :-2])
+```
+
+## Loading example data
+Note we provide processed and non-processed versins of the COVID example metabolomics dataset ([Su et al. 2020, Cell](https://data.mendeley.com/datasets/tzydswhhb5/5)). The processed version (set `processed=True`) already has ChEBI identifiers as column names, whereas the non-processed version has metabolite names. 
+
+```python
+covid_data = sspa.load_example_data(omicstype="metabolomics", processed=False)
+```
+
+Here we demonstrate some simple pre-processing for this dataset in order to enable conventional and ssPA pathway analysis:
+
+```python
+# Keep only metabolites (exclude metadata columns)
+covid_values = covid_data.iloc[:, :-2]
+
+# Remove metabolites with too many NA values
+data_filt = covid_values.loc[:, covid_values.isin([' ', np.nan, 0]).mean() < 0.5]
+
+# Impute using the median
+imputed_mat = data_filt.fillna(data_filt.median())
+
+# Log transform the data
+log2_mat = np.log2(imputed_mat)
+
+# Standardise the data
+processed_data = pd.DataFrame(StandardScaler().fit_transform(log2_mat), columns=imputed_mat.columns, index=imputed_mat.index)
 ```
 
 ## Loading pathways 
