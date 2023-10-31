@@ -51,7 +51,7 @@ class sspa_ora:
         pvalues = []
         pathway_ratio = []
         pathway_coverage = []
-
+        compound_in_pathway_by_name = []
         for pathway in pathways_present:
             # perform ORA for each pathway
             pathway_compounds = pathway_dict[pathway]
@@ -61,6 +61,8 @@ class sspa_ora:
                 continue
             else:
                 DA_in_pathway = len(set(self.DA_molecules) & set(pathway_compounds))
+                # coumpounds in DA list AND pathway using name of Database (KEGG, Reactome, other)
+                compound_in_pathway_by_name += [", ".join(list(set(self.DA_molecules) & set(pathway_compounds)))]
                 # k: compounds in DA list AND pathway
                 DA_not_in_pathway = len(np.setdiff1d(self.DA_molecules, pathway_compounds))
                 # K: compounds in DA list not in pathway
@@ -87,15 +89,15 @@ class sspa_ora:
             padj = sm.stats.multipletests(pvalues, 0.05, method="fdr_bh")
             results = pd.DataFrame(
                 zip(pathways_with_compounds, pathway_ratio, pathway_coverage, pvalues,
-                    padj[1]),
-                columns=["ID",  "Hits", "Coverage", "P-value", "P-adjust"])
+                    padj[1],compound_in_pathway_by_name),
+                columns=["ID",  "Hits", "Coverage", "P-value", "P-adjust","Metabolites_ID"])
             results["Pathway_name"] = results["ID"].map(pathway_names)
             results.insert(1, 'Pathway_name', results.pop('Pathway_name'))
 
         except ZeroDivisionError:
             padj = [1] * len(pvalues)
-            results = pd.DataFrame(zip(pathways_with_compounds, pathway_ratio, pvalues, padj),
-                                columns=["ID", "Hits", "Coverage", "P-value", "P-adjust"])
+            results = pd.DataFrame(zip(pathways_with_compounds, pathway_ratio, pvalues, padj,compound_in_pathway_by_name),
+                                columns=["ID", "Hits", "Coverage", "P-value", "P-adjust","Metabolites_ID"])
             results["Pathway_name"] = results["ID"].map(pathway_names)
             results.insert(1, 'Pathway_name', results.pop('Pathway_name'))
             
