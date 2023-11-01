@@ -37,7 +37,7 @@ class sspa_ora:
         """
         Function for over representation analysis using Fisher exact test (right tailed)
         Returns:
-            DataFrame of ORA results for each pathway, p-value, q-value, hits ratio
+            DataFrame of ORA results for each pathway, p-value, FDR p-value, hits ratio, coverage of pathway, and identifiers of differential metabolites 
         """
 
         pathway_names = self.pathways["Pathway_name"].to_dict()
