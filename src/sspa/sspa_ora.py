@@ -4,9 +4,6 @@ import scipy.stats as stats
 import statsmodels.api as sm
 import sspa.utils as utils
 
-"""
-Module docstring
-"""
 
 class sspa_ora:
     """
@@ -28,6 +25,7 @@ class sspa_ora:
         self.testtype = DA_testtype
         self.background_set = custom_background if custom_background is not None else mat.columns.to_list()
 
+        # Run differential analysis using t-test or mwu test
         self.DA_test_res = utils.t_tests(self.data.copy(deep=True), self.metadata, "fdr_bh", testtype=self.testtype)
         self.DA_molecules = self.DA_test_res[self.DA_test_res["P-adjust"] <= self.threshold]["Entity"].tolist()
         self.results = []
@@ -43,42 +41,44 @@ class sspa_ora:
         pathway_names = self.pathways["Pathway_name"].to_dict()
         pathway_dict = utils.pathwaydf_to_dict(self.pathways)
 
-        # Remove pathways not present in the dataset
+        # test only pathways with at least 1 DA compounds
         compounds_present = self.DA_molecules
         pathways_present = {k: v for k, v in pathway_dict.items() if len([i for i in compounds_present if i in v]) >= 1}
 
         pathways_with_compounds = []
         pvalues = []
-        pathway_ratio = []
-        pathway_coverage = []
-        compound_in_pathway_by_name = []
+        pathway_ratio = [] # DA compounds in pathway / pathway coverage
+        pathway_coverage = [] # pathway coverage / total compounds in original pathway
+        compound_in_pathway_by_name = [] # DA compounds in pathway by name
+        
         for pathway in pathways_present:
             # perform ORA for each pathway
-            pathway_compounds = pathway_dict[pathway]
+            pathway_compounds_all = pathway_dict[pathway]
+            pathway_compounds = list(set(pathway_compounds_all) & set(self.background_set))
             pathway_compounds = [i for i in pathway_compounds if str(i) != "nan"]
             if not pathway_compounds or len(pathway_compounds) < 2:
-                # ignore pathway if contains no compounds or has less than 3 compounds
+                # ignore pathway if contains no compounds or has less than 2 compounds
                 continue
             else:
                 DA_in_pathway = len(set(self.DA_molecules) & set(pathway_compounds))
-                # coumpounds in DA list AND pathway using name of Database (KEGG, Reactome, other)
-                compound_in_pathway_by_name += [", ".join(list(set(self.DA_molecules) & set(pathway_compounds)))]
                 # k: compounds in DA list AND pathway
+                compound_in_pathway_by_name += [", ".join(list(set(self.DA_molecules) & set(pathway_compounds)))]
+                # coumpounds in DA list AND pathway using name of Database (KEGG, Reactome, other)
                 DA_not_in_pathway = len(np.setdiff1d(self.DA_molecules, pathway_compounds))
                 # K: compounds in DA list not in pathway
                 compound_in_pathway_not_DA = len(set(pathway_compounds) & set(np.setdiff1d(self.background_set, self.DA_molecules)))
-                # not DEM compounds present in pathway
+                # not DA compounds present in pathway
                 compound_not_in_pathway_not_DA = len(
                     np.setdiff1d(np.setdiff1d(self.background_set, self.DA_molecules), pathway_compounds))
                 # compounds in background list not present in pathway
                 if DA_in_pathway == 0 or (compound_in_pathway_not_DA + DA_in_pathway) < 2:
-                    # ignore pathway if there are no DEM compounds in that pathway
+                    # ignore pathway if there are no DA compounds in that pathway
                     continue
                 else:
                     # Create 2 by 2 contingency table
                     pathway_ratio.append(str(DA_in_pathway) + "/" + str(compound_in_pathway_not_DA + DA_in_pathway))
                     pathway_coverage.append(
-                        str(compound_in_pathway_not_DA + DA_in_pathway) + "/" + str(len(pathway_compounds)))
+                        str(compound_in_pathway_not_DA + DA_in_pathway) + "/" + str(len(pathway_compounds_all)))
                     pathways_with_compounds.append(pathway)
                     contingency_table = np.array([[DA_in_pathway, compound_in_pathway_not_DA],
                                                 [DA_not_in_pathway, compound_not_in_pathway_not_DA]])
@@ -89,15 +89,15 @@ class sspa_ora:
             padj = sm.stats.multipletests(pvalues, 0.05, method="fdr_bh")
             results = pd.DataFrame(
                 zip(pathways_with_compounds, pathway_ratio, pathway_coverage, pvalues,
-                    padj[1],compound_in_pathway_by_name),
-                columns=["ID",  "Hits", "Coverage", "P-value", "P-adjust","Metabolites_ID"])
+                    padj[1], compound_in_pathway_by_name),
+                columns=["ID",  "Hits", "Coverage", "P-value", "P-adjust", "DA_Metabolites_ID"])
             results["Pathway_name"] = results["ID"].map(pathway_names)
             results.insert(1, 'Pathway_name', results.pop('Pathway_name'))
 
         except ZeroDivisionError:
             padj = [1] * len(pvalues)
-            results = pd.DataFrame(zip(pathways_with_compounds, pathway_ratio, pvalues, padj,compound_in_pathway_by_name),
-                                columns=["ID", "Hits", "Coverage", "P-value", "P-adjust","Metabolites_ID"])
+            results = pd.DataFrame(zip(pathways_with_compounds, pathway_ratio, pvalues, padj, compound_in_pathway_by_name),
+                                columns=["ID", "Hits", "Coverage", "P-value", "P-adjust", "DA_Metabolites_ID"])
             results["Pathway_name"] = results["ID"].map(pathway_names)
             results.insert(1, 'Pathway_name', results.pop('Pathway_name'))
             
