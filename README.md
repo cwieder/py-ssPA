@@ -79,10 +79,10 @@ processed_data = (log2_mat - log2_mat.mean(axis=0)) / log2_mat.std(axis=0)
 ```python
 # Pre-loaded pathways
 # Reactome v78
-reactome_pathways  = sspa.process_reactome(organism="Homo sapiens")
+reactome_pathways = sspa.process_reactome(organism="Homo sapiens")
 
 # KEGG v98
-kegg_human_pathways  = sspa.process_kegg(organism="hsa")
+kegg_human_pathways = sspa.process_kegg(organism="hsa")
 ```
 
 Load a custom GMT file (extension .gmt or .csv)
@@ -96,10 +96,14 @@ Download latest version of pathways
 kegg_mouse_latest = sspa.process_kegg("mmu", download_latest=True, filepath=".")
 
 # download Reactome latest
-reactome_mouse_latest = sspa.process_reactome("Mus musculus", download_latest=True, filepath=".")
+reactome_mouse_latest = sspa.process_reactome("Mus musculus", download_latest=True, filepath=".", omicstype='metabolomics')
+
+# download Pathbank latest
+pathbank_human_latest = sspa.process_pathbank("Homo sapiens", download_latest=True, filepath=".", omicstype='metabolomics')
 ```
 
 ## Identifier harmonization 
+Note: KEGG pathways use KEGG compound IDs, Reactome and Pathbank pathways use ChEBI and UniProt (for proteins)
 ```python
 # download the conversion table
 compound_names = processed_data.columns.tolist()
@@ -199,6 +203,9 @@ We are grateful for our contributors who help develop and maintain py-ssPA:
 ## News and updates
 <details>
 <summary>Read more</summary>
+
+### [v1.0.2] - 4/12/23
+- Enable download of Pathbank pathways (metabolite and protein) via the `process_pathbank()` function
 
 ### [v1.0.0] - 25/08/23
 - Add compatability with SciKitLearn by implementing `fit()`, `transform()` and `fit_transform()` methods for all ssPA methods. This allows integration of ssPA transformation with various machine learning functions in SKLearn such as `Pipeline` and `GridSearchCV`. Specifically for `sspa.sspa_ssClustPA`, `sspa.sspa_SVD`, and `sspa.sspa_KPCA` methods the model can be fit on the training data and the test data is transformed using the fitted model. 

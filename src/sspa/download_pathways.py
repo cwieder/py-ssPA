@@ -238,3 +238,94 @@ class MetExplorePaths:
         
         print("Complete!")
         return pathways
+
+
+def download_pathbank(organism, filepath=None, omicstype='metabolomics'):
+    '''
+    Function for PathBank pathway download
+    Args:
+        organism (str): PathBank organism name
+        filepath (str): filepath to save pathway file to, default is None - save to variable
+        omics_type(str): type of omics pathways to download. 
+        Options are 'metabolomics' (ChEBI identifiers), 'proteomics' (UniProt identifiers), or 'multiomics' (ChEBI and UniProt identifiers)
+    '''
+    organisms = ['Homo sapiens', 'Escherichia coli', 'Mus musculus', 'Arabidopsis thaliana',
+    'Saccharomyces cerevisiae', 'Bos taurus', 'Caenorhabditis elegans',
+    'Rattus norvegicus', 'Drosophila melanogaster', 'Pseudomonas aeruginosa']
+    if organism not in organisms:
+        raise ValueError('Organism must be one of '+ ", ".join(organisms))
+
+    version_no = None
+    pathway_names = pd.read_csv('https://pathbank.org/downloads/pathbank_all_pathways.csv.zip', compression='zip', sep=',', header=0)
+    name_dict = dict(zip(pathway_names['SMPDB ID'], pathway_names['Name']))
+
+
+    if omicstype == 'metabolomics':
+        metabolites_url = 'https://pathbank.org/downloads/pathbank_all_metabolites.csv.zip'
+        chebi_pathways = pd.read_csv(metabolites_url, compression='zip', sep=',', header=0, dtype=str)
+        chebi_pathways = chebi_pathways[chebi_pathways['Species'] == organism]
+
+        # reformat to gmt style such that each row contains chebi ID per pathway and each column is a chebi id
+        chebi_pathways = chebi_pathways.groupby(['PathBank ID', 'Pathway Name'])['ChEBI ID'].apply(list).reset_index()
+        chebi_pathways_gmt = pd.DataFrame(chebi_pathways['ChEBI ID'].values.tolist(), index=chebi_pathways['PathBank ID'])
+        chebi_pathways_gmt['Pathway_name'] = chebi_pathways_gmt.index.map(name_dict)
+        chebi_pathways_gmt.insert(0, 'Pathway_name', chebi_pathways_gmt.pop('Pathway_name'))
+
+        if filepath:
+            fpath = filepath + "/Pathbank_" + "_".join(organism.split())+ "_pathways_ChEBI" + ".gmt"
+            chebi_pathways_gmt.to_csv(fpath, sep="\t", header=False)
+            print("Pathbank DB file saved to " + fpath)
+
+        print("Complete!")
+        return chebi_pathways_gmt
+    
+    if omicstype == 'proteomics':
+        proteins_url = 'https://pathbank.org/downloads/pathbank_all_proteins.csv.zip'
+        uniprot_pathways = pd.read_csv(proteins_url, compression='zip', sep=',', header=0, dtype=str)
+        uniprot_pathways = uniprot_pathways[uniprot_pathways['Species'] == organism]
+
+        # reformat to gmt style such that each row contains uniprot ID per pathway and each column is a uniprot id
+        uniprot_pathways = uniprot_pathways.groupby(['PathBank ID', 'Pathway Name'])['Uniprot ID'].apply(list).reset_index()
+        uniprot_pathways_gmt = pd.DataFrame(uniprot_pathways['Uniprot ID'].values.tolist(), index=uniprot_pathways['PathBank ID'])
+        uniprot_pathways_gmt['Pathway_name'] = uniprot_pathways_gmt.index.map(name_dict)
+        uniprot_pathways_gmt.insert(0, 'Pathway_name', uniprot_pathways_gmt.pop('Pathway_name'))
+
+        if filepath:
+            fpath = filepath + "/Pathbank_" + "_".join(organism.split())+ "_pathways_UniProt" + ".gmt"
+            uniprot_pathways_gmt.to_csv(fpath, sep="\t", header=False)
+            print("Pathbank DB file saved to " + fpath)
+
+        print("Complete!")
+        return uniprot_pathways_gmt
+    
+    if omicstype == 'multiomics':
+        metabolites_url = 'https://pathbank.org/downloads/pathbank_all_metabolites.csv.zip'
+        chebi_pathways = pd.read_csv(metabolites_url, compression='zip', sep=',', header=0, dtype=str)
+        chebi_pathways = chebi_pathways[chebi_pathways['Species'] == organism]
+
+        # reformat to gmt style such that each row contains chebi ID per pathway and each column is a chebi id
+        chebi_pathways = chebi_pathways.groupby(['PathBank ID', 'Pathway Name'])['ChEBI ID'].apply(list).reset_index()
+        chebi_pathways_gmt = pd.DataFrame(chebi_pathways['ChEBI ID'].values.tolist(), index=chebi_pathways['PathBank ID'])
+
+        proteins_url = 'https://pathbank.org/downloads/pathbank_all_proteins.csv.zip'
+        uniprot_pathways = pd.read_csv(proteins_url, compression='zip', sep=',', header=0, dtype=str)
+        uniprot_pathways = uniprot_pathways[uniprot_pathways['Species'] == organism]
+
+        # reformat to gmt style such that each row contains uniprot ID per pathway and each column is a uniprot id
+        uniprot_pathways = uniprot_pathways.groupby(['PathBank ID', 'Pathway Name'])['Uniprot ID'].apply(list).reset_index()
+        uniprot_pathways_gmt = pd.DataFrame(uniprot_pathways['Uniprot ID'].values.tolist(), index=uniprot_pathways['PathBank ID'])
+
+        multiomics_pathways_gmt = pd.concat([chebi_pathways_gmt, uniprot_pathways_gmt], axis=1)
+        multiomics_pathways_gmt['Pathway_name'] = multiomics_pathways_gmt.index.map(name_dict)
+        multiomics_pathways_gmt.insert(0, 'Pathway_name', multiomics_pathways_gmt.pop('Pathway_name'))
+
+        if filepath:
+            fpath = filepath + "/Pathbank_" + "_".join(organism.split())+ "_pathways_multiomics" + ".gmt"
+            multiomics_pathways_gmt.to_csv(fpath, sep="\t", header=False)
+            print("Pathbank DB file saved to " + fpath)
+
+        print("Complete!")
+  
+        return multiomics_pathways_gmt
+    
+    download_pathbank()

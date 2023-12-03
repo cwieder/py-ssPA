@@ -74,6 +74,29 @@ def process_kegg(organism, infile=None, download_latest=False, filepath=None):
         pathways_df = pathways_df.mask(mask, None)
 
         return pathways_df
+    
+
+def process_pathbank(organism, infile=None, download_latest=False, filepath=None, omics_type='metabolomics'):
+    '''
+    Function to load PathBank pathways 
+    Args:
+        infile (str): default None, provide a PathBank pathway file to process into the GMT-style dataframe 
+        download_latest (Bool): Downloads the latest version of PathBank metabolic pathways
+        filepath (str): filepath to save pathway file to, default is None - save to variable
+        omics_type(str): If using download_latest, specify type of omics pathways to download. Options are 'metabolomics', 'proteomics', or 'multiomics'
+    Returns: 
+        GMT-like pd.DataFrame containing PathBank pathways
+    '''
+    if download_latest:
+        pathways_df = sspa.download_pathways.download_pathbank(organism, filepath, omics_type)
+        return pathways_df
+
+    else:
+        if infile:
+            pathways_df = pd.read_csv(infile, index_col=0)
+        else: 
+            print('Set download_latest=True to download latest version of PathBank pathways or provide a saved PathBank pathway .csv/.gmt file to load')
+
 
 def process_gmt(infile):
     '''
