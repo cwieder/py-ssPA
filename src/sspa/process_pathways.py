@@ -107,7 +107,7 @@ def process_gmt(infile):
         GMT-like pd.DataFrame containing pathways
     '''
     if infile[-4:] == ".csv":
-        pathways_df = pd.read_csv(infile, index_col=0)
+        pathways_df = pd.read_csv(infile, index_col=0, dtype='object')
     elif infile[-4:] == ".gmt":
         input_gmt = []
         with open(infile, "r") as f:
@@ -120,6 +120,6 @@ def process_gmt(infile):
 
     pathways_df = pathways_df.dropna(axis=0, how='all', subset=pathways_df.columns.tolist()[1:])
     pathways_df = pathways_df.dropna(axis=1, how='all')
-    
+    pathways_df = pathways_df.astype('object')
     return pathways_df
 
