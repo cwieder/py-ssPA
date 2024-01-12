@@ -11,28 +11,21 @@ def identifier_conversion(input_type, compound_list):
     Returns:
         (pd.DataFrame) Dataframe containing identifier matches 
     """
-    url = "https://www.xialab.ca/api/mapcompounds"
     print('Commencing ID conversion using Metaboanalyst API...')
+    
+    url = "https://www.xialab.ca/api/mapcompounds"
 
-    resps = []
-    for i in range(0, len(compound_list), 100):
-        cpds = compound_list[i:i+100]
-        input_cpds = {"queryList": ';'.join(cpds), "inputType": input_type}
-        headers = {
-            'Content-Type': "application/json",
-            'cache-control': "no-cache",
-            }
+    compound_list_string = ";".join(compound_list)
+    payload = f"{{\n\t\"queryList\": \"{compound_list_string};\",\n\t\"{input_type}\": \"name\"\n}}"
+    headers = {
+        'Content-Type': "application/json",
+        'cache-control': "no-cache",
+        }
 
-        response = requests.request("POST", url, json=input_cpds, headers=headers)
-        
-        resp_dict = response.json()
-        resps.append(resp_dict)
-
-    res_dict = {k: [d[k] for d in resps] for k in resps[0]}
-    res_dict = {k: [item for sublist in v for item in sublist] for k, v in res_dict.items()}
-
-    resp_df = pd.DataFrame(res_dict)
-    return resp_df
+    response = requests.request("POST", url, data=payload, headers=headers)
+    resp_dict = response.json()
+    df_res = pd.DataFrame(resp_dict)
+    return df_res
 
 def map_identifiers(query_df, output_id_type, matrix):
     """
