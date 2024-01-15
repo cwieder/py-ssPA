@@ -11,12 +11,15 @@ def identifier_conversion(input_type, compound_list):
     Returns:
         (pd.DataFrame) Dataframe containing identifier matches 
     """
-    print('Commencing ID conversion using Metaboanalyst API...')
-    
     url = "https://www.xialab.ca/api/mapcompounds"
+    print('Commencing ID conversion using Metaboanalyst API...')
+
+    if input_type != 'name':
+        raise NotImplementedError('Currently the API only converts from compound names to other identifiers.')
 
     compound_list_string = ";".join(compound_list)
-    payload = f"{{\n\t\"queryList\": \"{compound_list_string};\",\n\t\"{input_type}\": \"name\"\n}}"
+    payload = f"{{\n\t\"queryList\": \"{compound_list_string};\",\n\t\"inputType\": \"{input_type}\"\n}}"
+
     headers = {
         'Content-Type': "application/json",
         'cache-control': "no-cache",
@@ -24,8 +27,9 @@ def identifier_conversion(input_type, compound_list):
 
     response = requests.request("POST", url, data=payload, headers=headers)
     resp_dict = response.json()
-    df_res = pd.DataFrame(resp_dict)
-    return df_res
+    resp_df = pd.DataFrame(resp_dict)
+    return resp_df
+
 
 def map_identifiers(query_df, output_id_type, matrix):
     """
