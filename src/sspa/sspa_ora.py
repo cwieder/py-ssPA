@@ -73,6 +73,7 @@ class sspa_ora:
                 # compounds in background list not present in pathway
                 if DA_in_pathway == 0 or (compound_in_pathway_not_DA + DA_in_pathway) < 2:
                     # ignore pathway if there are no DEM compounds in that pathway
+                    compound_in_pathway_by_name = compound_in_pathway_by_name[:-1]
                     continue
                 else:
                     # Create 2 by 2 contingency table
