@@ -12,7 +12,7 @@ def identifier_conversion(input_type, compound_list):
         (pd.DataFrame) Dataframe containing identifier matches 
     """
     url = "https://www.xialab.ca/api/mapcompounds"
-    print('Commencing ID conversion using Metaboanalyst API...')
+    print('Commencing ID conversion using MetaboAnalyst API...')
 
     if input_type != 'name':
         raise NotImplementedError('Currently the API only converts from compound names to other identifiers.')
