@@ -8,7 +8,7 @@ import warnings
 import json
 from tqdm import tqdm
 
-def download_KEGG(organism, filepath=None):
+def download_KEGG(organism, filepath=None, omics_type='metabolomics'):
     '''
     Function for KEGG pathway download
     Args:
@@ -26,7 +26,7 @@ def download_KEGG(organism, filepath=None):
     pathways = pathways.split("\n")
     pathways = filter(None, pathways)
     pathway_dict = dict()
-    
+
     for path in pathways:
         path = path.split("\t")
         name = path[1]
@@ -38,41 +38,92 @@ def download_KEGG(organism, filepath=None):
 
     pathway_ids = [*pathway_dict]
     pathway_names = list(pathway_dict.values())
-    pathway_compound_mapping = dict()
-
-    for index,i in enumerate(tqdm(pathway_ids)):
-        complist = []
-        current_url = base_url + "pathway:" +i
-        # parse the pathway description page
-        page = requests.get(current_url)
-        lines = page.text.split("\n")
-
-        try:
-            cpds_start = [lines.index(i) for i in lines if i.startswith("COMPOUND")][0]
-            reference_start = [lines.index(i) for i in lines if i.startswith("REFERENCE") or i.startswith("REL_PATHWAY")][0]
-            cpds_lines = lines[cpds_start:reference_start]
-            first_cpd = cpds_lines.pop(0).split()[1]
-            complist.append(first_cpd)
-            complist = complist + [i.split()[0] for i in cpds_lines]
-            pathway_compound_mapping[i] = list(set(complist))
-        except IndexError:
-            pathway_compound_mapping[i] = []
 
     # get release details
     release_data = requests.get('http://rest.kegg.jp/info/kegg')
     version_no = release_data.text.split()[9][0:3]
 
-    # create GMT style file
-    df = pd.DataFrame.from_dict(pathway_compound_mapping, orient='index')
-    df.insert(0, 'Pathway_name', pathway_names)
+    if omics_type == 'metabolomics':
+        pathway_compound_mapping = dict()
 
-    if filepath:
-        fpath = filepath + "/KEGG_" + organism + "_pathways_compounds_R" + str(version_no) + ".gmt"
-        df.to_csv(fpath, sep="\t", header=False)
-        print("KEGG DB file saved to " + fpath)
-    print("Complete!")
+        for index,i in enumerate(tqdm(pathway_ids)):
+            complist = []
+            current_url = base_url + "pathway:" +i
+            # parse the pathway description page
+            page = requests.get(current_url)
+            lines = page.text.split("\n")
 
-    return df
+            try:
+                cpds_start = [lines.index(i) for i in lines if i.startswith("COMPOUND")][0]
+                reference_start = [lines.index(i) for i in lines if i.startswith("REFERENCE") or i.startswith("REL_PATHWAY")][0]
+                cpds_lines = lines[cpds_start:reference_start]
+                first_cpd = cpds_lines.pop(0).split()[1]
+                complist.append(first_cpd)
+                complist = complist + [i.split()[0] for i in cpds_lines]
+                pathway_compound_mapping[i] = list(set(complist))
+            except IndexError:
+                pathway_compound_mapping[i] = []
+
+        # remove empty pathway entries
+        pathway_compound_mapping = {k: v for k, v in pathway_compound_mapping.items() if v}
+
+        # create GMT style file
+        df = pd.DataFrame.from_dict(pathway_compound_mapping, orient='index')
+        # map pathway names onto first column
+        df.insert(0, 'Pathway_name', df.index.map(pathway_dict.get))
+
+        if filepath:
+            fpath = filepath + "/KEGG_" + organism + "_pathways_compounds_R" + str(version_no) + ".gmt"
+            df.to_csv(fpath, sep="\t", header=False)
+            print("KEGG DB file saved to " + fpath)
+        print("Complete!")
+
+        return df
+        
+
+    if omics_type == 'multiomics':
+        pathway_mapping = dict()
+
+        for index,i in enumerate(tqdm(pathway_ids)):
+            complist = []
+            genelist = []
+            current_url = base_url + "pathway:" +i
+            # parse the pathway description page
+            page = requests.get(current_url)
+            lines = page.text.split("\n")
+
+            try:
+                genes_start = [lines.index(i) for i in lines if i.startswith("GENE")][0]
+                cpds_start = [lines.index(i) for i in lines if i.startswith("COMPOUND")][0]
+                reference_start = [lines.index(i) for i in lines if i.startswith("REFERENCE") or i.startswith("REL_PATHWAY")][0]
+                genes_lines = lines[genes_start:cpds_start]
+                cpds_lines = lines[cpds_start:reference_start]
+
+                first_cpd = cpds_lines.pop(0).split()[1]
+                complist.append(first_cpd)
+                complist = complist + [i.split()[0] for i in cpds_lines]
+                first_gene = genes_lines.pop(0).split()[1]
+                genelist.append(first_gene)
+                genelist = genelist + [i.split()[0] for i in genes_lines]
+                pathway_mapping[i] = list(set(complist)) + list(set(genelist))
+            except IndexError:
+                pathway_mapping[i] = []
+
+        # remove empty pathway entries
+        pathway_mapping = {k: v for k, v in pathway_mapping.items() if v}
+
+        # create GMT style file
+        df = pd.DataFrame.from_dict(pathway_mapping, orient='index')
+        # map pathway names onto first column
+        df.insert(0, 'Pathway_name', df.index.map(pathway_dict.get))
+
+        if filepath:
+            fpath = filepath + "/KEGG_" + organism + "_pathways_multiomics_R" + str(version_no) + ".gmt"
+            df.to_csv(fpath, sep="\t", header=False)
+            print("KEGG DB file saved to " + fpath)
+        print("Complete!")
+
+        return df
 
 def download_reactome(organism, filepath=None, omics_type='metabolomics'):
     '''

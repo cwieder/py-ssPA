@@ -44,7 +44,7 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
 
         return pathways_df
 
-def process_kegg(organism, infile=None, download_latest=False, filepath=None):
+def process_kegg(organism, infile=None, download_latest=False, filepath=None, omics_type='metabolomics'):
     '''
     Function to load KEGG pathways 
     Args:
@@ -60,6 +60,8 @@ def process_kegg(organism, infile=None, download_latest=False, filepath=None):
         return pathways_df
 
     else:
+        if omics_type != 'metabolomics':
+            raise ValueError('Proteomics/multi-omics pathways only accessible when download_latest=True')
         if infile == None or infile == "R98":
             stream = pkg_resources.resource_stream(__name__, 'pathway_databases/KEGG_human_pathways_compounds_R98.csv')
             pathways_df = pd.read_csv(stream, index_col=0, encoding='latin-1')
