@@ -56,7 +56,7 @@ def process_kegg(organism, infile=None, download_latest=False, filepath=None, om
         GMT-like pd.DataFrame containing KEGG pathways
     '''
     if download_latest:
-        pathways_df = sspa.download_pathways.download_KEGG(organism, filepath)
+        pathways_df = sspa.download_pathways.download_KEGG(organism, filepath, omics_type)
         return pathways_df
 
     else:
