@@ -22,7 +22,7 @@ Although this package is designed to provide a user-friendly interface for metab
 ## Documentation and tutorials
 This README provides a quickstart guide to the package and its functions. For new users we **highly recommend following our full walkthrough notebook tutorial** available on Google Colab which provides a step-by-step guide to using the package.
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PdJueJkpdkpplE2ieNoO8CKcEmtXF1-x?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rUVW7tYKRdVBikpAO2CUk2RkSwrFubLi?usp=sharing)
 
 Click the link above and save a copy of the Colab notebook to your Google Drive. Alternatively, you can download the notebook from the Colab tutorial as an '.ipynb' file and run it locally using Jupyter Notebook or Jupyter Lab.
 

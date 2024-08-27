@@ -1,7 +1,7 @@
 
 Please see our interactive walkthrough tutorial for a detailed overview on the package functionalities:
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1PdJueJkpdkpplE2ieNoO8CKcEmtXF1-x?usp=sharing)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1rUVW7tYKRdVBikpAO2CUk2RkSwrFubLi?usp=sharing)
 
 
 # Quickstart quide
