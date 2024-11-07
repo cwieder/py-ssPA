@@ -2,7 +2,7 @@ import pandas as pd
 import pkg_resources
 import sspa.download_pathways 
 
-def process_reactome(organism, infile=None, download_latest=False, filepath=None, omics_type='metabolomics'):
+def process_reactome(organism, infile=None, download_latest=False, filepath=None, omics_type='metabolomics', identifiers=None):
     '''
     Function to load Reactome pathways 
     Args:
@@ -10,7 +10,9 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
         infile (str): default None, provide a Reactome pathway file to process into the GMT-style dataframe 
         download_latest (Bool): Downloads the latest version of Reactome metabolic pathways
         filepath (str): filepath to save pathway file to, default is None - save to variable
-        omics_type(str): If using download_latest, specify type of omics pathways to download. Options are 'metabolomics', 'proteomics', or 'multiomics'
+        omics_type(str): If using download_latest, specify type of omics pathways to download. Options are 'metabolomics', 'proteomics', 'transcriptomics', or 'multiomics'
+        identifiers (list): list of identifiers to download for multi-omics pathways, default is None (download all). Options are 'chebi', 'uniprot', 'gene_symbol'
+
     Returns: 
         GMT-like pd.DataFrame containing Reactome pathways
     '''
@@ -18,7 +20,7 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
     # Process CHEBI to reactome data
 
     if download_latest:
-        pathways_df = sspa.download_pathways.download_reactome(organism, filepath, omics_type)
+        pathways_df = sspa.download_pathways.download_reactome(organism, filepath, omics_type, identifiers)
         return pathways_df
     
     else:
@@ -29,6 +31,7 @@ def process_reactome(organism, infile=None, download_latest=False, filepath=None
             f = pd.read_csv(stream, sep="\t", header=None, encoding='latin-1')
         else:
             f = pd.read_csv(infile, sep="\t", header=None)
+
         f.columns = ['CHEBI', 'pathway_ID', 'link', 'pathway_name', 'evidence_code', 'species']
         f_filt = f[f.species == organism]
         name_dict = dict(zip(f_filt['pathway_ID'], f_filt['pathway_name']))

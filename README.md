@@ -15,9 +15,9 @@ sspa provides a Python interface for metabolomics pathway analysis. In addition 
 - Metabolite set enrichment analysis (based on GSEA)
 - Single-sample pathway analysis
 - Compound identifier conversion
-- Pathway database download (KEGG, Reactome, and MetExplore metabolic networks)
+- Pathway database download (KEGG, Reactome, and PathBank)
 
-Although this package is designed to provide a user-friendly interface for metabolomics pathway analysis, the methods are also applicable to other datatypes such as normalised RNA-seq data. 
+Although this package is designed to provide a user-friendly interface for metabolomics pathway analysis, the methods are also applicable to other datatypes such as normalised RNA-seq and proteomics data. 
 
 ## Documentation and tutorials
 This README provides a quickstart guide to the package and its functions. For new users we **highly recommend following our full walkthrough notebook tutorial** available on Google Colab which provides a step-by-step guide to using the package.
@@ -92,14 +92,29 @@ custom_pathways = sspa.process_gmt("wikipathways-20220310-gmt-Homo_sapiens.gmt")
 
 Download latest version of pathways
 ```python
-# download KEGG latest
+# download KEGG latest metabolomics pathways
 kegg_mouse_latest = sspa.process_kegg("mmu", download_latest=True, filepath=".")
 
-# download Reactome latest
-reactome_mouse_latest = sspa.process_reactome("Mus musculus", download_latest=True, filepath=".", omicstype='metabolomics')
+# download Reactome latest metabolomics pathways
+reactome_mouse_latest = sspa.process_reactome("Mus musculus", download_latest=True, filepath=".", omics_type='metabolomics')
 
-# download Pathbank latest
-pathbank_human_latest = sspa.process_pathbank("Homo sapiens", download_latest=True, filepath=".", omicstype='metabolomics')
+# download Pathbank latest metabolomics pathways
+pathbank_human_latest = sspa.process_pathbank("Homo sapiens", download_latest=True, filepath=".", omics_type='metabolomics')
+```
+
+Download latest version of multi-omics pathways
+- For Reactome, users can specify the omics types required via the 'identifiers' argument. Leaving this to None downloads all omics (ChEBI, UniProt, Gene Symbol). Users can specify any combination of `['chebi', 'uniprot', 'gene_symbol']`. 
+- For KEGG, multi-omics pathways are represented by KEGG gene and KEGG compound identifiers. 
+
+```python
+# download multi-omics pathways from Reactome (ChEBI, UniProt, Gene Symbol)
+reactome_human_mo = sspa.process_reactome('Homo sapiens', download_latest=True, filepath=".", omics_type='multiomics', identifiers=['chebi', 'uniprot', 'gene_symbol'])
+
+# download multi-omics pathways from Reactome (ChEBI and UniProt)
+reactome_human_mo = sspa.process_reactome('Homo sapiens', download_latest=True, filepath=".", omics_type='multiomics', identifiers=['chebi', 'uniprot'])
+
+# download multi-omics pathways from KEGG (KEGG gene and KEGG compound)
+kegg_mouse_latest = sspa.process_kegg("mmu", download_latest=True, filepath=".", omics_type='multiomics')
 ```
 
 ## Identifier harmonization 

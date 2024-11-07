@@ -10,5 +10,5 @@ from .utils import load_example_data, t_tests
 from .sspa_ora import sspa_ora
 from .sspa_gsea import sspa_gsea
 from .sspa_ssGSEA import sspa_ssGSEA
-from .download_pathways import download_KEGG, download_reactome, MetExplorePaths
+from .download_pathways import download_KEGG, download_reactome
 from .identifier_conversion import identifier_conversion, map_identifiers
