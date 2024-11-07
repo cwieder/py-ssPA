@@ -5,13 +5,11 @@ version: master
 
 pages:
 
-  - page: "reference/download_pathways.md"
-    source: "src/sspa/download_pathways.py"
-    functions:
-      - download_KEGG
-      - download_reactome
-    classes:
-      - MetExplorePaths
+  # - page: "reference/download_pathways.md"
+  #   source: "src/sspa/download_pathways.py"
+  #   functions:
+  #     - download_KEGG
+  #     - download_reactome
 
   - page: "reference/identifier_conversion.md"
     source: "src/sspa/identifier_conversion.py"
@@ -25,6 +23,7 @@ pages:
       - process_reactome
       - process_kegg
       - process_gmt
+      - process_pathbank
 
   - page: "reference/utils.md"
     source: "src/sspa/utils.py"
