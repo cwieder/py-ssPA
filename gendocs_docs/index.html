@@ -1,0 +1,1082 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
+    
+    
+      
+        <title>sspa - ssPA Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sspa" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="ssPA Docs" class="md-header__button md-logo" aria-label="ssPA Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ssPA Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              sspa
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ssPA Docs" class="md-nav__button md-logo" aria-label="ssPA Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ssPA Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tutorials/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sklearn_sspa/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ssPA and SKLearn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/identifier_conversion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Identifier conversion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/download_pathways.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    None
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/load_pathways/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load pathways
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/utils/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Utils
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pathway analysis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Pathway analysis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/ORA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ORA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/GSEA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GSEA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5_3" id="__nav_3_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Single sample methods
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Single sample methods
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/SVD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SVD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/kPCA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    kPCA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/ssClustPA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ssClustPA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/ssGSEA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ssGSEA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/zscore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zscore
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#single-sample-pathway-analysis-toolkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single sample pathway analysis toolkit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-and-tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation and tutorials
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quickstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quickstart
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-example-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading example data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-pathways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loading pathways
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identifier-harmonization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Identifier harmonization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conventional-pathway-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conventional pathway analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#single-sample-pathway-analysis-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Single sample pathway analysis methods
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      License
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#citing-us" class="md-nav__link">
+    <span class="md-ellipsis">
+      Citing us
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributors
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#news-and-updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      News and updates
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="sspa">sspa</h1>
+<p><img alt="sspa_logo" src="sspa_logo.png" /></p>
+<p><a href="https://badge.fury.io/py/sspa"><img alt="PyPI version" src="https://badge.fury.io/py/sspa.svg" /></a>
+<a href="https://zenodo.org/badge/latestdoi/442446643"><img alt="DOI" src="https://zenodo.org/badge/442446643.svg" /></a>
+<a href="https://cwieder.github.io/py-ssPA/"><img alt="ssPA docs" src="https://github.com/cwieder/py-sspa/actions/workflows/sspa-docs.yml/badge.svg" /></a>
+<img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/sspa" />
+<a href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License: GPL v3" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a></p>
+<h2 id="single-sample-pathway-analysis-toolkit">Single sample pathway analysis toolkit</h2>
+<p>sspa provides a Python interface for metabolomics pathway analysis. In addition to conventional methods over-representation analysis (ORA) and gene/metabolite set enrichment analysis (GSEA), it also provides a wide range of single-sample pathway analysis (ssPA) methods. </p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Over-representation analysis</li>
+<li>Metabolite set enrichment analysis (based on GSEA)</li>
+<li>Single-sample pathway analysis</li>
+<li>Compound identifier conversion</li>
+<li>Pathway database download (KEGG, Reactome, and PathBank)</li>
+</ul>
+<p>Although this package is designed to provide a user-friendly interface for metabolomics pathway analysis, the methods are also applicable to other datatypes such as normalised RNA-seq and proteomics data. </p>
+<h2 id="documentation-and-tutorials">Documentation and tutorials</h2>
+<p>This README provides a quickstart guide to the package and its functions. For new users we <strong>highly recommend following our full walkthrough notebook tutorial</strong> available on Google Colab which provides a step-by-step guide to using the package.</p>
+<p><a href="https://colab.research.google.com/drive/1rUVW7tYKRdVBikpAO2CUk2RkSwrFubLi?usp=sharing"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>Click the link above and save a copy of the Colab notebook to your Google Drive. Alternatively, you can download the notebook from the Colab tutorial as an '.ipynb' file and run it locally using Jupyter Notebook or Jupyter Lab.</p>
+<p>Documentation is available on our <a href="https://cwieder.github.io/py-ssPA/">Read the Docs page</a>. This includes a function API reference. </p>
+<h2 id="quickstart">Quickstart</h2>
+<p><div class="highlight"><pre><span></span><code>pip install sspa
+</code></pre></div>
+Load Reactome pathways
+<div class="highlight"><pre><span></span><code><span class="n">reactome_pathways</span>  <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_reactome</span><span class="p">(</span><span class="n">organism</span><span class="o">=</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Load some example metabolomics data in the form of a pandas DataFrame:</p>
+<div class="highlight"><pre><span></span><code><span class="n">covid_data_processed</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">load_example_data</span><span class="p">(</span><span class="n">omicstype</span><span class="o">=</span><span class="s2">&quot;metabolomics&quot;</span><span class="p">,</span> <span class="n">processed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+<p>Generate pathway scores using kPCA method</p>
+<div class="highlight"><pre><span></span><code><span class="n">kpca_scores</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">sspa_kpca</span><span class="p">(</span><span class="n">reactome_pathways</span><span class="p">,</span> <span class="n">min_entity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">covid_data_processed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>
+<h2 id="loading-example-data">Loading example data</h2>
+<p>Note we provide processed and non-processed versins of the COVID example metabolomics dataset (<a href="https://data.mendeley.com/datasets/tzydswhhb5/5">Su et al. 2020, Cell</a>). The processed version (set <code>processed=True</code>) already has ChEBI identifiers as column names, whereas the non-processed version has metabolite names. </p>
+<div class="highlight"><pre><span></span><code><span class="n">covid_data</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">load_example_data</span><span class="p">(</span><span class="n">omicstype</span><span class="o">=</span><span class="s2">&quot;metabolomics&quot;</span><span class="p">,</span> <span class="n">processed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+<p>Here we demonstrate some simple pre-processing for this dataset in order to enable conventional and ssPA pathway analysis:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Keep only metabolites (exclude metadata columns)</span>
+<span class="n">covid_values</span> <span class="o">=</span> <span class="n">covid_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+
+<span class="c1"># Remove metabolites with too many NA values</span>
+<span class="n">data_filt</span> <span class="o">=</span> <span class="n">covid_values</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">covid_values</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.5</span><span class="p">]</span>
+
+<span class="c1"># Impute using the median</span>
+<span class="n">imputed_mat</span> <span class="o">=</span> <span class="n">data_filt</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">data_filt</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+
+<span class="c1"># Log transform the data</span>
+<span class="n">log2_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">imputed_mat</span><span class="p">)</span>
+
+<span class="c1"># Standardise the data (metabolite values) using z-score (mean=0, std=1) by subtracting the mean and dividing by the standard deviation</span>
+<span class="n">processed_data</span> <span class="o">=</span> <span class="p">(</span><span class="n">log2_mat</span> <span class="o">-</span> <span class="n">log2_mat</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span> <span class="o">/</span> <span class="n">log2_mat</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="loading-pathways">Loading pathways</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pre-loaded pathways</span>
+<span class="c1"># Reactome v78</span>
+<span class="n">reactome_pathways</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_reactome</span><span class="p">(</span><span class="n">organism</span><span class="o">=</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">)</span>
+
+<span class="c1"># KEGG v98</span>
+<span class="n">kegg_human_pathways</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_kegg</span><span class="p">(</span><span class="n">organism</span><span class="o">=</span><span class="s2">&quot;hsa&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Load a custom GMT file (extension .gmt or .csv)
+<div class="highlight"><pre><span></span><code><span class="n">custom_pathways</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_gmt</span><span class="p">(</span><span class="s2">&quot;wikipathways-20220310-gmt-Homo_sapiens.gmt&quot;</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Download latest version of pathways
+<div class="highlight"><pre><span></span><code><span class="c1"># download KEGG latest metabolomics pathways</span>
+<span class="n">kegg_mouse_latest</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_kegg</span><span class="p">(</span><span class="s2">&quot;mmu&quot;</span><span class="p">,</span> <span class="n">download_latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+<span class="c1"># download Reactome latest metabolomics pathways</span>
+<span class="n">reactome_mouse_latest</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_reactome</span><span class="p">(</span><span class="s2">&quot;Mus musculus&quot;</span><span class="p">,</span> <span class="n">download_latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">omics_type</span><span class="o">=</span><span class="s1">&#39;metabolomics&#39;</span><span class="p">)</span>
+
+<span class="c1"># download Pathbank latest metabolomics pathways</span>
+<span class="n">pathbank_human_latest</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_pathbank</span><span class="p">(</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">,</span> <span class="n">download_latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">omics_type</span><span class="o">=</span><span class="s1">&#39;metabolomics&#39;</span><span class="p">)</span>
+</code></pre></div></p>
+<p>Download latest version of multi-omics pathways
+- For Reactome, users can specify the omics types required via the 'identifiers' argument. Leaving this to None downloads all omics (ChEBI, UniProt, Gene Symbol). Users can specify any combination of <code>['chebi', 'uniprot', 'gene_symbol']</code>. 
+- For KEGG, multi-omics pathways are represented by KEGG gene and KEGG compound identifiers. </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># download multi-omics pathways from Reactome (ChEBI, UniProt, Gene Symbol)</span>
+<span class="n">reactome_human_mo</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_reactome</span><span class="p">(</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">,</span> <span class="n">download_latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">omics_type</span><span class="o">=</span><span class="s1">&#39;multiomics&#39;</span><span class="p">,</span> <span class="n">identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chebi&#39;</span><span class="p">,</span> <span class="s1">&#39;uniprot&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_symbol&#39;</span><span class="p">])</span>
+
+<span class="c1"># download multi-omics pathways from Reactome (ChEBI and UniProt)</span>
+<span class="n">reactome_human_mo</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_reactome</span><span class="p">(</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">,</span> <span class="n">download_latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">omics_type</span><span class="o">=</span><span class="s1">&#39;multiomics&#39;</span><span class="p">,</span> <span class="n">identifiers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chebi&#39;</span><span class="p">,</span> <span class="s1">&#39;uniprot&#39;</span><span class="p">])</span>
+
+<span class="c1"># download multi-omics pathways from KEGG (KEGG gene and KEGG compound)</span>
+<span class="n">kegg_mouse_latest</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">process_kegg</span><span class="p">(</span><span class="s2">&quot;mmu&quot;</span><span class="p">,</span> <span class="n">download_latest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">omics_type</span><span class="o">=</span><span class="s1">&#39;multiomics&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="identifier-harmonization">Identifier harmonization</h2>
+<p>Note: KEGG pathways use KEGG compound IDs, Reactome and Pathbank pathways use ChEBI and UniProt (for proteins)
+<div class="highlight"><pre><span></span><code><span class="c1"># download the conversion table</span>
+<span class="n">compound_names</span> <span class="o">=</span> <span class="n">processed_data</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">conversion_table</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">identifier_conversion</span><span class="p">(</span><span class="n">input_type</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">compound_list</span><span class="o">=</span><span class="n">compound_names</span><span class="p">)</span>
+
+<span class="c1"># map the identifiers to your dataset</span>
+<span class="n">processed_data_mapped</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">map_identifiers</span><span class="p">(</span><span class="n">conversion_table</span><span class="p">,</span> <span class="n">output_id_type</span><span class="o">=</span><span class="s2">&quot;ChEBI&quot;</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="n">processed_data</span><span class="p">)</span>
+</code></pre></div></p>
+<h2 id="conventional-pathway-analysis">Conventional pathway analysis</h2>
+<p>Over-representation analysis (ORA)
+<div class="highlight"><pre><span></span><code><span class="n">ora</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">sspa_ora</span><span class="p">(</span><span class="n">processed_data_mapped</span><span class="p">,</span> <span class="n">covid_data</span><span class="p">[</span><span class="s2">&quot;Group&quot;</span><span class="p">],</span> <span class="n">reactome_pathways</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">DA_testtype</span><span class="o">=</span><span class="s1">&#39;ttest&#39;</span><span class="p">,</span> <span class="n">custom_background</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># perform ORA </span>
+<span class="n">ora_res</span> <span class="o">=</span> <span class="n">ora</span><span class="o">.</span><span class="n">over_representation_analysis</span><span class="p">()</span>
+
+<span class="c1"># get t-test results</span>
+<span class="n">ora</span><span class="o">.</span><span class="n">ttest_res</span>
+
+<span class="c1"># obtain list of differential molecules input to ORA</span>
+<span class="n">ora</span><span class="o">.</span><span class="n">DA_test_res</span>
+</code></pre></div></p>
+<p>Gene Set Enrichment Analysis (GSEA), applicable to any type of omics data</p>
+<div class="highlight"><pre><span></span><code><span class="n">sspa</span><span class="o">.</span><span class="n">sspa_gsea</span><span class="p">(</span><span class="n">processed_data_mapped</span><span class="p">,</span> <span class="n">covid_data</span><span class="p">[</span><span class="s1">&#39;Group&#39;</span><span class="p">],</span> <span class="n">reactome_pathways</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="single-sample-pathway-analysis-methods">Single sample pathway analysis methods</h2>
+<p>All ssPA methods now have a <code>fit()</code>, <code>transform()</code> and <code>fit_transform()</code> method for compatibility with SciKitLearn. This allows integration of ssPA transformation with various machine learning functions in SKLearn such as <code>Pipeline</code> and <code>GridSearchCV</code>. Specifically for <code>sspa.sspa_ssClustPA</code>, <code>sspa.sspa_SVD</code>, and <code>sspa.sspa_KPCA</code> methods the model can be fit on the training data and the test data is transformed using the fitted model.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ssclustPA</span>
+<span class="n">ssclustpa_res</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">sspa_ssClustPA</span><span class="p">(</span><span class="n">reactome_pathways</span><span class="p">,</span> <span class="n">min_entity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">processed_data_mapped</span><span class="p">)</span>
+
+<span class="c1"># kPCA </span>
+<span class="n">kpca_scores</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">sspa_kpca</span><span class="p">(</span><span class="n">reactome_pathways</span><span class="p">,</span> <span class="n">min_entity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">processed_data_mapped</span><span class="p">)</span>
+
+<span class="c1"># z-score (Lee et al. 2008)</span>
+<span class="n">zscore_res</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">sspa_zscore</span><span class="p">(</span><span class="n">reactome_pathways</span><span class="p">,</span> <span class="n">min_entity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">processed_data_mapped</span><span class="p">)</span>
+
+<span class="c1"># SVD (PLAGE, Tomfohr et al. 2005)</span>
+<span class="n">svd_res</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">sspa_svd</span><span class="p">(</span><span class="n">reactome_pathways</span><span class="p">,</span> <span class="n">min_entity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">processed_data_mapped</span><span class="p">)</span>
+
+<span class="c1"># ssGSEA (Barbie et al. 2009)</span>
+<span class="n">ssgsea_res</span> <span class="o">=</span> <span class="n">sspa</span><span class="o">.</span><span class="n">sspa_ssGSEA</span><span class="p">(</span><span class="n">reactome_pathways</span><span class="p">,</span> <span class="n">min_entity</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">processed_data_mapped</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="license">License</h2>
+<p>GNU GPL 3.0</p>
+<h2 id="citing-us">Citing us</h2>
+<p><a href="https://zenodo.org/badge/latestdoi/442446643"><img alt="DOI" src="https://zenodo.org/badge/442446643.svg" /></a></p>
+<p>If you found this package useful, please consider citing us:</p>
+<p>ssPA package
+<div class="highlight"><pre><span></span><code>@article{Wieder22a,
+   author = {Cecilia Wieder and Nathalie Poupin and Clément Frainay and Florence Vinson and Juliette Cooke and Rachel PJ Lai and Jacob G Bundy and Fabien Jourdan and Timothy MD Ebbels},
+   doi = {10.5281/ZENODO.6959120},
+   month = {8},
+   title = {cwieder/py-ssPA: v1.0.4},
+   url = {https://zenodo.org/record/6959120},
+   year = {2022},
+}
+</code></pre></div></p>
+<p>Single-sample pathway analysis in metabolomics
+<div class="highlight"><pre><span></span><code>@article{Wieder2022,
+   author = {Cecilia Wieder and Rachel P J Lai and Timothy M D Ebbels},
+   doi = {10.1186/s12859-022-05005-1},
+   issn = {1471-2105},
+   issue = {1},
+   journal = {BMC Bioinformatics},
+   pages = {481},
+   title = {Single sample pathway analysis in metabolomics: performance evaluation and application},
+   volume = {23},
+   url = {https://doi.org/10.1186/s12859-022-05005-1},
+   year = {2022},
+}
+</code></pre></div></p>
+<h2 id="contributing">Contributing</h2>
+<p>Read our <a href="https://github.com/cwieder/py-ssPA/blob/main/CONTRIBUTING.md">contributor's guide</a> to get started</p>
+<h3 id="contributors">Contributors</h3>
+<p>We are grateful for our contributors who help develop and maintain py-ssPA:
+- Maëlick Brochut <a href="https://github.com/mbrochut">@mbrochut</a></p>
+<h2 id="news-and-updates">News and updates</h2>
+<details>
+<summary>Read more</summary>
+
+### [v1.0.2] - 4/12/23
+- Enable download of Pathbank pathways (metabolite and protein) via the `process_pathbank()` function
+
+### [v1.0.0] - 25/08/23
+- Add compatability with SciKitLearn by implementing `fit()`, `transform()` and `fit_transform()` methods for all ssPA methods. This allows integration of ssPA transformation with various machine learning functions in SKLearn such as `Pipeline` and `GridSearchCV`. Specifically for `sspa.sspa_ssClustPA`, `sspa.sspa_SVD`, and `sspa.sspa_KPCA` methods the model can be fit on the training data and the test data is transformed using the fitted model. 
+- Fixed ID conversion bug in `sspa.map_identifiers()` due to MetaboAnalyst API URL change
+
+### [v0.2.4] - 04/07/23
+Enable the download of multi-omics (ChEBI and UniProt) Reactome pathways for multi-omics integration purposes. Enable `omics_type='multiomics'` to download:
+<div class="highlight"><pre><span></span><code>reactome_mouse_latest_mo = sspa.process_reactome(&quot;Mus musculus&quot;, download_latest=True, filepath=&quot;.&quot;, omics_type=&#39;multiomics&#39;)
+</code></pre></div>
+
+### [v0.2.3] - 23/06/23
+- @mbrochut Bug fix in KEGG pathway downloader 
+- @mbrochut Add tqdm progress bar for long KEGG downloads
+
+### [v0.2.1] - 05/01/23
+- Removal of rpy2 dependency for improved compatibility across systems
+- Use [GSEApy](https://github.com/zqfang/GSEApy) as backend for GSEA and ssGSEA 
+- Minor syntax changes
+   - `ora.ttest_res` is now `ora.DA_test_res` (as we can implement t-test or MWU tests)
+   - `sspa_fgsea()` is now `sspa_gsea()` and uses gseapy as the backend rather than R fgsea
+   - `sspa_gsva()` is temporarily deprecated due to the need for the rpy2 compatability - use the [GSVA R package](https://bioconductor.org/packages/release/bioc/html/GSVA.html)
+
+</details>
+<!-- - Allow download of gene/protein pathways from KEGG and Reactome -->
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
