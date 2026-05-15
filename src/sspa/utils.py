@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import pkg_resources
+from importlib import resources as resources
 import scipy.stats as stats
 import statsmodels.api as sm
 
@@ -22,11 +22,13 @@ def load_example_data(omicstype="metabolomics", processed=True):
 
     if omicstype == "metabolomics":
         if processed:
-            stream = pkg_resources.resource_stream(__name__, 'example_data/Su_covid_metabolomics_processed.csv')
+            stream = resources.files(__name__).joinpath('example_data/Su_covid_metabolomics_processed.csv').open('rb')
+            #stream = pkg_resources.resource_stream(__name__, 'example_data/Su_covid_metabolomics_processed.csv')
             f = pd.read_csv(stream, index_col=0, encoding='latin-1')
             return f
         else:
-            stream = pkg_resources.resource_stream(__name__, 'example_data/Su_metab_data_raw.csv')
+            stream = resources.files(__name__).joinpath('example_data/Su_covid_metabolomics_processed.csv').open('rb')
+            #stream = pkg_resources.resource_stream(__name__, 'example_data/Su_metab_data_raw.csv')
             f = pd.read_csv(stream, index_col=0, encoding='latin-1')
             return f
 
@@ -81,7 +83,7 @@ def pathwaydf_to_dict(df):
     pathway_dict = {}
 
     for pathway in pathways_df.index:
-        pathway_compounds = list(set(pathways_df.loc[pathway, :].tolist()))
+        pathway_compounds = list(set(pathways_df.loc[pathway].dropna().tolist()))
         pathway_compounds = [str(i) for i in pathway_compounds if str(i) not in ["None", np.nan, 'nan']]
 
         if len(pathway_compounds) > 1:

@@ -14,13 +14,19 @@ def sspa_gsea(mat, metadata, pathway_df, ranking_metric='signal_to_noise', min_e
             Other options are 't_test' and see GSEApy package https://github.com/zqfang/GSEApy/blob/2b5419e14615b6fd19a575ff065256dc7099bbec/gseapy/gsea.py#L135 for more options. 
         min_entity (int, optional): minimum number of molecules mapping to pathways for GSEA to be performed. Defaults to 2.
     """
-    
+    if "Gene" not in mat.columns:
+        #check if  gene names is set as a column, if not, transpose and reset index
+        mat = mat.T.reset_index()
+        mat = mat.rename(columns={"index": "Gene"})
+    else:
+        mat = mat.copy()
+
     pathway_names = pathway_df["Pathway_name"].to_dict()
     pathways = utils.pathwaydf_to_dict(pathway_df)
-    compounds_present = mat.columns.tolist()
+    compounds_present = mat["Gene"].tolist()
     pathways = {k: v for k, v in pathways.items() if len([i for i in compounds_present if i in v]) >= min_entity}
 
-    gsea_res = gseapy.gsea(data=mat.T, 
+    gsea_res = gseapy.gsea(data=mat, 
                  gene_sets=pathways, 
                  cls=metadata,
                  min_size=min_entity,
